@@ -12,7 +12,7 @@ namespace SharpOcarina
         static extern bool AllocConsole();
         
         public static string ApplicationTitle;
-        public static int ApplicationVersion = 0x0020;
+        public static int ApplicationVersion = 0x0030;
 
         public static MainForm MF;
         public static bool QuitProgram = false;
