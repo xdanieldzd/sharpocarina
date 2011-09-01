@@ -351,7 +351,7 @@ namespace SharpOcarina
                 {
                     NDisplayList DList = new NDisplayList(Scale, Room.ObjModel.Groups[j].TintAlpha, 1.0f, IsOutdoors, Room.ObjModel.Groups[j].BackfaceCulling);
                     DList.Convert(Room.ObjModel, j, Textures, (uint)Room.RoomData.Count);
-                    
+
                     if (DList.Data != null)
                         Room.RoomData.AddRange(DList.Data);
 
@@ -611,7 +611,7 @@ namespace SharpOcarina
         }
 
         /* Algorithm by MN, implementation by JSA, C version by spinout: http://wiki.spinout182.com/w/Zelda_64:_Collision_Normals
-         * Fixes by DeathBasket: http://core.the-gcn.com/index.php?/topic/675-sharpocarina-zelda-oot-scene-development-system/page__view__findpost__p__10991
+         * Fixed for good by DeathBasket: http://core.the-gcn.com/index.php?/topic/675-sharpocarina-zelda-oot-scene-development-system/page__view__findpost__p__11060
          */
         private void FixCollision(ref List<byte> Data, int VertOff, int TriOff, int TriCount)
         {
@@ -619,7 +619,7 @@ namespace SharpOcarina
             int v1, v2, v3, dn;
             int[] p1 = new int[3], p2 = new int[3], p3 = new int[3], dx = new int[2], dy = new int[2], dz = new int[2], ni = new int[3];
             float nd;
-            float[] nf = new float[3];
+            float[] nf = new float[3], uv = new float[3];
 
             for (pos = TriOff; pos < end; pos += 0x10)
             {
@@ -638,35 +638,29 @@ namespace SharpOcarina
                 dy[0] = p1[1] - p2[1]; dy[1] = p2[1] - p3[1];
                 dz[0] = p1[2] - p2[2]; dz[1] = p2[2] - p3[2];
 
-                ni[0] = (dy[0] * dz[1]) - (dz[0] * dy[1]);
-                ni[1] = (dz[0] * dx[1]) - (dx[0] * dz[1]);
-                ni[2] = (dx[0] * dy[1]) - (dy[0] * dx[1]);
+                nf[0] = (float)(dy[0] * dz[1]) - (dz[0] * dy[1]);
+                nf[1] = (float)(dz[0] * dx[1]) - (dx[0] * dz[1]);
+                nf[2] = (float)(dx[0] * dy[1]) - (dy[0] * dx[1]);
 
-                for (i = 0; i < 3; i++)
-                    nf[i] = (float)ni[i] * ni[i];
-
-                nd = nf[0] + nf[1] + nf[2];
+                /* calculate length of normal vector */
+                nd = (float)Math.Sqrt((nf[0] * nf[0]) + (nf[1] * nf[1]) + (nf[2] * nf[2]));
 
                 for (i = 0; i < 3; i++)
                 {
                     if (nd != 0)
-                        nf[i] /= nd;
-                    nf[i] *= 0x3FFF0001;
-                    nf[i] = (float)Math.Sqrt((double)nf[i]);
-                    if (ni[i] < 0)
-                        nf[i] *= -1;
+                        uv[i] = nf[i] / nd; /* uv being the unit normal vector */
+                    nf[i] = uv[i] * 0x7FFF;   /* nf being the way OoT uses it */
                 }
 
-                dn = (int)((nf[0] * p1[0] / 0x7FFF) + (nf[1] * p1[1] / 0x7FFF) + (nf[2] * p1[2] / 0x7FFF)) * -1;
+                /* distance from origin... */
+                dn = (int)Math.Round(((uv[0] * p1[0]) + (uv[1] * p1[1]) + (uv[2] * p1[2])) * -1);
 
                 if (dn < 0)
                     dn += 0x10000;
-
                 Helpers.Overwrite16(ref Data, pos + 0xE, (ushort)(dn & 0xFFFF));
-
                 for (i = 0; i < 3; i++)
                 {
-                    ni[i] = (int)nf[i];
+                    ni[i] = (int)Math.Round(nf[i]);
                     if (ni[i] < 0)
                         ni[i] += 0x10000;
                     Helpers.Overwrite16(ref Data, (pos + 8 + (i << 1)), (ushort)(ni[i] & 0xFFFF));
