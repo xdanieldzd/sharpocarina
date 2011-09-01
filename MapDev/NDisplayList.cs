@@ -419,7 +419,7 @@ namespace SharpOcarina
                 {
                     /* Texture with alpha channel */
                     Helpers.Append64(ref DList, SetCombine(0x127E03, 0xFFFFF3F8));
-                    Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8113078));
+                    Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8103078));
                 }
                 else if ((TintAlpha >> 24) != 255)
                 {
