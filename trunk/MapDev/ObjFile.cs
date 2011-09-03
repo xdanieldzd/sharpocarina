@@ -517,7 +517,7 @@ namespace SharpOcarina
                     MatToAdd.map_Kd = MatToAdd.map_Ka;
 
                 /* Only add the material if both, map_Ka and map_Kd, aren't empty */
-                //if (MatToAdd.map_Ka != null && MatToAdd.map_Kd != null)
+                if (MatToAdd.map_Ka != null && MatToAdd.map_Kd != null)
                     Materials.Add(MatToAdd);
 
                 MaterialIsOpen = false;
