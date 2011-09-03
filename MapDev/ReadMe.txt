@@ -1,5 +1,5 @@
 ﻿------------------------------------------------------
-SharpOcarina v0.2 - Zelda OoT Scene Development System
+SharpOcarina v0.4 - Zelda OoT Scene Development System
               Written in 2011 by xdaniel              
 ------------------------------------------------------
 
