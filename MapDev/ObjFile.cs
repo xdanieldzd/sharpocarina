@@ -367,14 +367,6 @@ namespace SharpOcarina
 
             AddGroup(NewGroup);
 
-            foreach (Group Grp in Groups)
-            {
-                Grp.Triangles.Sort(delegate(Triangle t1, Triangle t2)
-                {
-                    return t1.MaterialName.CompareTo(t2.MaterialName);
-                });
-            }
-            
             SR.Close();
 
             Prepare();
