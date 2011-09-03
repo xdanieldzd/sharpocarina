@@ -162,6 +162,9 @@ SharpOcarina v0.4 - Zelda OoT Scene Development System
                the separate controls below will have to be changed here. Again, please refer to the
                z64 Wiki for more information.
 
+   - Exit Number: Which exit walking onto this collision type should trigger, according to the
+                  scene's exit list. Note that 0 disables the trigger.
+
    - Echo Range: Change the echo level; overrides global settings.
 
    - Environment: Select which environment setup to use; remember that it has to be defined,

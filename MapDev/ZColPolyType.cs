@@ -18,6 +18,13 @@ namespace SharpOcarina
         public ulong Raw;
 
         [XmlIgnore]
+        public long ExitNumber
+        {
+            get { return (long)((Raw & 0x00000F0000000000) >> 40); }
+            set { Raw = ((Raw & 0xFFFFF0FFFFFFFFFF) | ((ulong)(value & 0xF) << 40)); }
+        }
+
+        [XmlIgnore]
         public long ClimbingCrawlingFlags
         {
             get { return (long)((Raw & 0x00F0000000000000) >> 52); }

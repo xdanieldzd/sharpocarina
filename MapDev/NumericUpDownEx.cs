@@ -9,6 +9,7 @@ namespace SharpOcarina
     public class NumericUpDownEx : NumericUpDown
     {
         int displayDigits = 1;
+        int incrementMouseWheel = 3;
 
         bool doValueRollover = true;
 
@@ -35,6 +36,32 @@ namespace SharpOcarina
                 base.Text = string.Format(@"{0:X" + displayDigits + "}", (Int32)base.Value);
             else
                 base.Text = string.Format(@"{0:D" + displayDigits + "}", (Int32)base.Value);
+        }
+
+        [Category("Behavior")]
+        [Description("Amount to increase/decrease value when mouse wheel is used.")]
+        public int IncrementMouseWheel
+        {
+            set
+            {
+                incrementMouseWheel = value;
+            }
+            get
+            {
+                return this.incrementMouseWheel;
+            }
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                this.Value = Math.Min(this.Value + incrementMouseWheel, this.Maximum);
+            }
+            else if (e.Delta < 0)
+            {
+                this.Value = Math.Max(this.Value - incrementMouseWheel, this.Minimum);
+            }
         }
 
         [Category("Behavior")]
