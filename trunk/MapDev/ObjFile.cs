@@ -635,8 +635,11 @@ namespace SharpOcarina
                 }
 
                 if (_Groups[i].Highlight == true)
+                {
+                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
                     foreach (Triangle Tri in _Groups[i].Triangles)
                         DrawHighlightedTriangle(Tri, new Color4(1.0f, 0.5f, 0.0f, 0.5f), false);
+                }
 
                 GL.EndList();
             }

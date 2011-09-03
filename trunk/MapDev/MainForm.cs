@@ -262,6 +262,7 @@ namespace SharpOcarina
             GL.Disable(EnableCap.Texture2D);
             GL.Disable(EnableCap.Normalize);
             GL.Disable(EnableCap.Lighting);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
             if (CurrentScene != null && NowLoading == false)
             {
@@ -1513,9 +1514,17 @@ namespace SharpOcarina
                 numericUpDown3.Maximum = CurrentScene.PolyTypes.Count;
                 numericUpDown3.Enabled = true;
 
-                numericTextBox1.Text = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].Raw.ToString("X16");
-                numericUpDownEx3.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].EchoRange;
+                if (CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].ExitNumber >= CurrentScene.ExitList.Count)
+                    CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].ExitNumber = CurrentScene.ExitList.Count;
+                numericUpDownEx10.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].ExitNumber;
+                numericUpDownEx10.Maximum = CurrentScene.ExitList.Count;
+
+                if (CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].EnvNumber >= CurrentScene.Environments.Count)
+                    CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].EnvNumber = CurrentScene.Environments.Count;
                 numericUpDownEx7.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].EnvNumber;
+                numericUpDownEx7.Maximum = CurrentScene.Environments.Count;
+
+                numericUpDownEx3.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].EchoRange;
                 numericUpDownEx9.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].GroundType;
                 numericUpDownEx8.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].TerrainType;
                 checkBox2.Checked = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].IsSteep;
@@ -1549,6 +1558,8 @@ namespace SharpOcarina
                     radioButton6.Checked = false;
                 }
 
+                numericTextBox1.Text = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].Raw.ToString("X16");
+                
                 foreach (Control Ctrl in panel2.Controls)
                     Ctrl.Enabled = true;
 
@@ -1561,9 +1572,9 @@ namespace SharpOcarina
                 numericUpDown3.Value = 0;
                 numericUpDown3.Enabled = false;
 
-                numericTextBox1.Text = string.Empty;
-                numericUpDownEx3.Value = 0;
+                numericUpDownEx10.Value = 0;
                 numericUpDownEx7.Value = 0;
+                numericUpDownEx3.Value = 0;
                 numericUpDownEx9.Value = 0;
                 numericUpDownEx8.Value = 0;
                 checkBox2.Checked = false;
@@ -1577,6 +1588,8 @@ namespace SharpOcarina
                 radioButton5.Checked = false;
                 radioButton6.Checked = false;
 
+                numericTextBox1.Text = string.Empty;
+                
                 foreach (Control Ctrl in panel2.Controls)
                     Ctrl.Enabled = false;
 
@@ -1670,6 +1683,12 @@ namespace SharpOcarina
 
                 UpdateGroupSelect();
             }
+        }
+
+        private void numericUpDownEx10_ValueChanged(object sender, EventArgs e)
+        {
+            CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].ExitNumber = (int)numericUpDownEx10.Value;
+            UpdateForm();
         }
 
         private void numericUpDownEx3_ValueChanged(object sender, EventArgs e)

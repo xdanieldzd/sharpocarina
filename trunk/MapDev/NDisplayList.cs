@@ -415,17 +415,17 @@ namespace SharpOcarina
                 //InsertTextureLoad(ref DList, Obj.Materials[1].Width, Obj.Materials[1].Height, Textures[1], TexPal, GBI.G_TX_RENDERTILE + 1, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT);  //multitex
 
                 /* Generate commands for mode settings */
-                if (ThisTexture.HasAlpha == true)
-                {
-                    /* Texture with alpha channel */
-                    Helpers.Append64(ref DList, SetCombine(0x127E03, 0xFFFFF3F8));
-                    Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8103078));
-                }
-                else if ((TintAlpha >> 24) != 255)
+                if ((TintAlpha >> 24) != 255)
                 {
                     /* Translucent surface */
                     Helpers.Append64(ref DList, SetCombine(0x167E03, 0xFF0FFDFF));
                     Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC81049D8));
+                }
+                else if (ThisTexture.HasAlpha == true)
+                {
+                    /* Texture with alpha channel */
+                    Helpers.Append64(ref DList, SetCombine(0x127E03, 0xFFFFF3F8));
+                    Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8103078));
                 }
                 else
                 {
