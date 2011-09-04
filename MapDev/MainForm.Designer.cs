@@ -758,7 +758,7 @@
             // numericTextBox6
             // 
             this.numericTextBox6.AllowHex = true;
-            this.numericTextBox6.Digits = 4;
+            this.numericTextBox6.Digits = 8;
             this.numericTextBox6.Enabled = false;
             this.numericTextBox6.Location = new System.Drawing.Point(267, 56);
             this.numericTextBox6.Name = "numericTextBox6";

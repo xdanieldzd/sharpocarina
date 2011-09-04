@@ -156,9 +156,7 @@ namespace SharpOcarina
             public int TileS = 0, TileT = 0, PolyType = 0;
             [XmlIgnore]
             public bool BackfaceCulling = true;
-            [XmlIgnore]
-            public bool Highlight = false;
-
+            
             private List<Triangle> _Tris = new List<Triangle>();
 
             public List<Triangle> Triangles
@@ -586,11 +584,10 @@ namespace SharpOcarina
                 if (GL.IsList(_Groups[i].GLID) == true) GL.DeleteLists(_Groups[i].GLID, 1);
 
                 _Groups[i].GLID = GL.GenLists(1);
-                GL.NewList(_Groups[i].GLID, ListMode.CompileAndExecute);
+                GL.NewList(_Groups[i].GLID, ListMode.Compile);
 
                 GL.ActiveTexture(TextureUnit.Texture0);
-                GL.Enable(EnableCap.Texture2D);
-
+                
                 GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)All.Repeat);
                 GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)All.Repeat);
 
@@ -623,15 +620,7 @@ namespace SharpOcarina
                         }
                     }
 
-                    GL.Color4(Color.FromArgb((int)_Groups[i].TintAlpha));
                     DrawTriangle(Tri, Mat);
-                }
-
-                if (_Groups[i].Highlight == true)
-                {
-                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-                    foreach (Triangle Tri in _Groups[i].Triangles)
-                        DrawHighlightedTriangle(Tri, new Color4(1.0f, 0.5f, 0.0f, 0.5f), false);
                 }
 
                 GL.EndList();
@@ -643,8 +632,6 @@ namespace SharpOcarina
             if (Mat != null)
             {
                 /* Normal, textured model rendering */
-                GL.Disable(EnableCap.PolygonOffsetFill);
-
                 if (_MaterialLighting == true)
                 {
                     GL.Enable(EnableCap.ColorMaterial);
@@ -719,9 +706,14 @@ namespace SharpOcarina
             GL.End();
         }
 
-        public void Render(int Group)
+        public void Render(Group Grp)
         {
-            GL.CallList(_Groups[Group].GLID);
+            GL.CallList(Grp.GLID);
+        }
+
+        public void Render(int Grp)
+        {
+            GL.CallList(_Groups[Grp].GLID);
         }
 
         public void Render()
