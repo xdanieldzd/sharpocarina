@@ -291,7 +291,7 @@ namespace SharpOcarina
 
                         GroupIsOpen = true;
                         NewGroup = new Group();
-                        NewGroup.Name = Tokenized[1];
+                        NewGroup.Name = Line.Substring(Line.IndexOf(' ') + 1);
                         break;
 
                     case "mtllib":
@@ -389,8 +389,6 @@ namespace SharpOcarina
                     }
                 }
             }
-
-            Console.WriteLine("Vert 0, norms:" + _Verts[0].VN.ToString());
         }
 
         private void AddGroup(Group GroupToAdd)
@@ -607,6 +605,9 @@ namespace SharpOcarina
                     if (Mat != null)
                     {
                         GL.BindTexture(TextureTarget.Texture2D, Mat.GLID);
+
+                        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)All.Repeat);
+                        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)All.Repeat);
 
                         if (_Groups[i].TileS != 0 || _Groups[i].TileT != 0)
                         {

@@ -1,4 +1,6 @@
 ﻿TODO:
 - "General" -> Add separate time-of-day and timeflow options
-- Rewrite material parser; add support for "Kd" commands
 - Allow forcing of RGBA5551 in texture conversion
+- Update Readme & new build HERE
+
+- Rewrite material parser; add support for "Kd" commands
