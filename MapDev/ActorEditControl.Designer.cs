@@ -222,14 +222,15 @@
             this.numericUpDown6.DisplayDigits = 1;
             this.numericUpDown6.DoValueRollover = false;
             this.numericUpDown6.Enabled = false;
+            this.numericUpDown6.IncrementMouseWheel = 1;
             this.numericUpDown6.Location = new System.Drawing.Point(74, 81);
             this.numericUpDown6.Maximum = new decimal(new int[] {
-            32768,
+            32767,
             0,
             0,
             0});
             this.numericUpDown6.Minimum = new decimal(new int[] {
-            32769,
+            32768,
             0,
             0,
             -2147483648});
@@ -280,6 +281,12 @@
             this.numericUpDown9.DisplayDigits = 1;
             this.numericUpDown9.DoValueRollover = false;
             this.numericUpDown9.Enabled = false;
+            this.numericUpDown9.Increment = new decimal(new int[] {
+            182,
+            0,
+            0,
+            0});
+            this.numericUpDown9.IncrementMouseWheel = 182;
             this.numericUpDown9.Location = new System.Drawing.Point(267, 29);
             this.numericUpDown9.Maximum = new decimal(new int[] {
             32767,
@@ -307,14 +314,15 @@
             this.numericUpDown5.DisplayDigits = 1;
             this.numericUpDown5.DoValueRollover = false;
             this.numericUpDown5.Enabled = false;
+            this.numericUpDown5.IncrementMouseWheel = 1;
             this.numericUpDown5.Location = new System.Drawing.Point(74, 55);
             this.numericUpDown5.Maximum = new decimal(new int[] {
-            32768,
+            32767,
             0,
             0,
             0});
             this.numericUpDown5.Minimum = new decimal(new int[] {
-            32769,
+            32768,
             0,
             0,
             -2147483648});
@@ -374,6 +382,12 @@
             this.numericUpDown7.DisplayDigits = 1;
             this.numericUpDown7.DoValueRollover = false;
             this.numericUpDown7.Enabled = false;
+            this.numericUpDown7.Increment = new decimal(new int[] {
+            182,
+            0,
+            0,
+            0});
+            this.numericUpDown7.IncrementMouseWheel = 182;
             this.numericUpDown7.Location = new System.Drawing.Point(267, 81);
             this.numericUpDown7.Maximum = new decimal(new int[] {
             32767,
@@ -401,6 +415,12 @@
             this.numericUpDown8.DisplayDigits = 1;
             this.numericUpDown8.DoValueRollover = false;
             this.numericUpDown8.Enabled = false;
+            this.numericUpDown8.Increment = new decimal(new int[] {
+            182,
+            0,
+            0,
+            0});
+            this.numericUpDown8.IncrementMouseWheel = 182;
             this.numericUpDown8.Location = new System.Drawing.Point(267, 55);
             this.numericUpDown8.Maximum = new decimal(new int[] {
             32767,
@@ -438,14 +458,15 @@
             this.numericUpDown4.DisplayDigits = 1;
             this.numericUpDown4.DoValueRollover = false;
             this.numericUpDown4.Enabled = false;
+            this.numericUpDown4.IncrementMouseWheel = 1;
             this.numericUpDown4.Location = new System.Drawing.Point(74, 29);
             this.numericUpDown4.Maximum = new decimal(new int[] {
-            32768,
+            32767,
             0,
             0,
             0});
             this.numericUpDown4.Minimum = new decimal(new int[] {
-            32769,
+            32768,
             0,
             0,
             -2147483648});

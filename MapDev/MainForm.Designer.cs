@@ -733,7 +733,7 @@
             this.numericUpDownEx6.DisplayDigits = 1;
             this.numericUpDownEx6.DoValueRollover = false;
             this.numericUpDownEx6.Enabled = false;
-            this.numericUpDownEx6.IncrementMouseWheel = 3;
+            this.numericUpDownEx6.IncrementMouseWheel = 1;
             this.numericUpDownEx6.Location = new System.Drawing.Point(74, 57);
             this.numericUpDownEx6.Maximum = new decimal(new int[] {
             100000,
@@ -793,7 +793,7 @@
             this.numericUpDownEx5.DisplayDigits = 1;
             this.numericUpDownEx5.DoValueRollover = false;
             this.numericUpDownEx5.Enabled = false;
-            this.numericUpDownEx5.IncrementMouseWheel = 3;
+            this.numericUpDownEx5.IncrementMouseWheel = 1;
             this.numericUpDownEx5.Location = new System.Drawing.Point(267, 5);
             this.numericUpDownEx5.Maximum = new decimal(new int[] {
             100000,
@@ -832,7 +832,7 @@
             this.numericUpDownEx4.DisplayDigits = 1;
             this.numericUpDownEx4.DoValueRollover = false;
             this.numericUpDownEx4.Enabled = false;
-            this.numericUpDownEx4.IncrementMouseWheel = 3;
+            this.numericUpDownEx4.IncrementMouseWheel = 1;
             this.numericUpDownEx4.Location = new System.Drawing.Point(74, 31);
             this.numericUpDownEx4.Maximum = new decimal(new int[] {
             100000,
@@ -861,7 +861,7 @@
             this.numericUpDownEx1.DisplayDigits = 1;
             this.numericUpDownEx1.DoValueRollover = false;
             this.numericUpDownEx1.Enabled = false;
-            this.numericUpDownEx1.IncrementMouseWheel = 3;
+            this.numericUpDownEx1.IncrementMouseWheel = 1;
             this.numericUpDownEx1.Location = new System.Drawing.Point(267, 31);
             this.numericUpDownEx1.Maximum = new decimal(new int[] {
             100000,
@@ -910,7 +910,7 @@
             this.numericUpDownEx2.DisplayDigits = 1;
             this.numericUpDownEx2.DoValueRollover = false;
             this.numericUpDownEx2.Enabled = false;
-            this.numericUpDownEx2.IncrementMouseWheel = 3;
+            this.numericUpDownEx2.IncrementMouseWheel = 1;
             this.numericUpDownEx2.Location = new System.Drawing.Point(74, 5);
             this.numericUpDownEx2.Maximum = new decimal(new int[] {
             100000,

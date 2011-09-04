@@ -62,6 +62,8 @@ namespace SharpOcarina
             {
                 this.Value = Math.Max(this.Value - incrementMouseWheel, this.Minimum);
             }
+
+            base.OnValueChanged(new EventArgs());
         }
 
         [Category("Behavior")]
