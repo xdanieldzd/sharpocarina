@@ -28,6 +28,14 @@ namespace SharpOcarina
     public class NTexture
     {
         /// <summary>
+        /// Texture width in pixels
+        /// </summary>
+        public int Width;
+        /// <summary>
+        /// Texture height in pixels
+        /// </summary>
+        public int Height;
+        /// <summary>
         /// N64-side texture type
         /// </summary>
         public byte Type;
@@ -101,6 +109,23 @@ namespace SharpOcarina
                     if (Pixel.A != 0xFF)
                         HasAlpha = true;
                 }
+
+            Width = Image.Width;
+            Height = Image.Height;
+        }
+
+        /// <summary>
+        /// Checks if the texture's size is valid
+        /// </summary>
+        /// <returns>True or False, depending on size validity</returns>
+        private bool IsSizeValid()
+        {
+            int[] ValidValues = new int[] { 8, 16, 32, 64, 128, 256, 512 };
+
+            if (Array.Find(ValidValues, element => element == Width) == 0) return false;
+            if (Array.Find(ValidValues, element => element == Height) == 0) return false;
+
+            return true;
         }
 
         /// <summary>
@@ -162,210 +187,219 @@ namespace SharpOcarina
         /// <param name="Material">Material to convert</param>
         public void Convert(ObjFile.Material Material)
         {
-            BitmapData RawBmp = null;
-            byte[] Raw = null;
-
-            IsGrayscale = false;
-            HasAlpha = false;
-
-            CheckImageProperties(Material.TexImage);
-
             try
             {
-                RawBmp = Material.TexImage.LockBits(
-                    new Rectangle(0, 0, (int)Material.Width, (int)Material.Height),
-                    ImageLockMode.ReadOnly,
-                    PixelFormat.Format32bppArgb
-                );
 
-                int Size = RawBmp.Height * RawBmp.Stride;
-                Raw = new byte[Size];
+                BitmapData RawBmp = null;
+                byte[] Raw = null;
 
-                System.Runtime.InteropServices.Marshal.Copy(RawBmp.Scan0, Raw, 0, Size);
-            }
-            finally
-            {
-                if (RawBmp != null)
-                    Material.TexImage.UnlockBits(RawBmp);
-            }
+                IsGrayscale = false;
+                HasAlpha = false;
 
-            List<Color> UniqueColors = GetUniqueColors(Material.TexImage);
+                CheckImageProperties(Material.TexImage);
 
-            if (IsGrayscale == true)
-            {
-                if (HasAlpha == true)
+                if (IsSizeValid() == false)
+                    throw new Exception(string.Format("Invalid texture size {0}x{1}", Width, Height));
+
+                try
                 {
-                    /* Convert to IA */
+                    RawBmp = Material.TexImage.LockBits(
+                        new Rectangle(0, 0, (int)Material.Width, (int)Material.Height),
+                        ImageLockMode.ReadOnly,
+                        PixelFormat.Format32bppArgb
+                    );
+
+                    int Size = RawBmp.Height * RawBmp.Stride;
+                    Raw = new byte[Size];
+
+                    System.Runtime.InteropServices.Marshal.Copy(RawBmp.Scan0, Raw, 0, Size);
+                }
+                finally
+                {
+                    if (RawBmp != null)
+                        Material.TexImage.UnlockBits(RawBmp);
+                }
+
+                //throw new Exception("Too many grayshades in texture OR invalid size");
+                List<Color> UniqueColors = GetUniqueColors(Material.TexImage);
+
+                if (IsGrayscale == true)
+                {
+                    if (HasAlpha == true)
+                    {
+                        /* Convert to IA */
+                        if (UniqueColors.Count <= 16)
+                        {
+#if DEBUG
+                            Console.WriteLine("IA 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
+#endif
+                            /* Set type, IA 8-bit */
+                            Format = GBI.G_IM_FMT_IA;
+                            Size = GBI.G_IM_SIZ_8b;
+
+                            /* Generate texture buffer */
+                            Data = new byte[Material.Width * Material.Height];
+                            Palette = null;
+
+                            /* Loop through pixels, convert to IA 8-bit, write to texture buffer */
+                            for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
+                            {
+                                Data[j] = (byte)(((Raw[i] / 16) << 4) | ((Raw[i + 3] / 16) & 0xF));
+                            }
+                        }
+                        else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 2048)
+                        {
+#if DEBUG
+                            Console.WriteLine("IA 16-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
+#endif
+                            /* Set type, IA 16-bit */
+                            Format = GBI.G_IM_FMT_IA;
+                            Size = GBI.G_IM_SIZ_16b;
+
+                            /* Generate texture buffer */
+                            Data = new byte[Material.Width * Material.Height * 2];
+                            Palette = null;
+
+                            /* Loop through pixels, convert to IA 16-bit, write to texture buffer */
+                            for (int i = 0, j = 0; i < Raw.Length; i += 4, j += 2)
+                            {
+                                Data[j] = Raw[i + 2];
+                                Data[j + 1] = Raw[i + 3];
+                            }
+                        }
+                        else
+                        {
+                            /* Uh-oh, too many grayshades OR invalid size! */
+                            throw new Exception("Too many grayshades in texture OR invalid size");
+                        }
+                    }
+                    else
+                    {
+                        /* Convert to I */
+                        if (UniqueColors.Count <= 16)
+                        {
+#if DEBUG
+                            Console.WriteLine("I 4-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
+#endif
+                            /* Set type, I 4-bit */
+                            Format = GBI.G_IM_FMT_I;
+                            Size = GBI.G_IM_SIZ_4b;
+
+                            /* Generate texture buffer */
+                            Data = new byte[(Material.Width * Material.Height) / 2];
+                            Palette = null;
+
+                            /* Loop through pixels, convert to I 4-bit, write to texture buffer */
+                            for (int i = 0, j = 0; i < Raw.Length; i += 8, j++)
+                            {
+                                Data[j] = (byte)(((Raw[i] / 16) << 4) | ((Raw[i + 4] / 16) & 0xF));
+                            }
+                        }
+                        else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 4096)
+                        {
+#if DEBUG
+                            Console.WriteLine("I 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
+#endif
+                            /* Set type, I 8-bit */
+                            Format = GBI.G_IM_FMT_I;
+                            Size = GBI.G_IM_SIZ_8b;
+
+                            /* Generate texture buffer */
+                            Data = new byte[Material.Width * Material.Height];
+                            Palette = null;
+
+                            /* Loop through pixels, convert to I 8-bit, write to texture buffer */
+                            for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
+                            {
+                                Data[j] = Raw[i];
+                            }
+                        }
+                        else
+                        {
+                            /* Uh-oh, too many grayshades OR invalid size! */
+                            throw new Exception("Too many grayshades in texture OR invalid size");
+                        }
+                    }
+                }
+                else
+                {
+                    /* Convert to CI */
                     if (UniqueColors.Count <= 16)
                     {
-                        Console.WriteLine("IA 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
-
-                        /* Set type, IA 8-bit */
-                        Format = GBI.G_IM_FMT_IA;
-                        Size = GBI.G_IM_SIZ_8b;
+#if DEBUG
+                        Console.WriteLine("CI 4-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");
+#endif
+                        /* Set type, CI 4-bit */
+                        Format = GBI.G_IM_FMT_CI;
+                        Size = GBI.G_IM_SIZ_4b;
 
                         /* Generate texture buffer */
-                        Data = new byte[Material.Width * Material.Height];
-                        Palette = null;
+                        Data = new byte[(Material.Width * Material.Height) / 2];
 
-                        /* Loop through pixels, convert to IA 8-bit, write to texture buffer */
-                        for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
+                        /* Generate 16-color RGBA5551 palette */
+                        Palette = GeneratePalette(UniqueColors, 16);
+
+                        /* Loop through pixels, get palette indexes, write to texture buffer */
+                        for (int i = 0, j = 0; i < Raw.Length; i += 8, j++)
                         {
-                            Data[j] = (byte)(((Raw[i] / 16) << 4) | ((Raw[i + 3] / 16) & 0xF));
+                            ushort RGBA5551_1 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
+                            ushort RGBA5551_2 = ToRGBA5551(Raw[i + 6], Raw[i + 5], Raw[i + 4], Raw[i + 7]);
+                            byte Value = (byte)(
+                                ((GetPaletteIndex(Palette, RGBA5551_1)) << 4) |
+                                ((GetPaletteIndex(Palette, RGBA5551_2) & 0xF)));
+                            Data[j] = Value;
                         }
                     }
                     else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 2048)
                     {
-                        Console.WriteLine("IA 16-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
+#if DEBUG
+                        Console.WriteLine("CI 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");
+#endif
+                        /* Set type, CI 8-bit */
+                        Format = GBI.G_IM_FMT_CI;
+                        Size = GBI.G_IM_SIZ_8b;
 
-                        /* Set type, IA 16-bit */
-                        Format = GBI.G_IM_FMT_IA;
+                        /* Generate texture buffer */
+                        Data = new byte[Material.Width * Material.Height];
+
+                        /* Generate 256-color RGBA5551 palette */
+                        Palette = GeneratePalette(UniqueColors, 256);
+
+                        /* Loop through pixels, get palette indexes, write to texture buffer */
+                        for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
+                        {
+                            ushort RGBA5551 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
+                            Data[j] = (byte)GetPaletteIndex(Palette, RGBA5551);
+                        }
+                    }
+                    else
+                    {
+                        /* Convert to RGBA */
+#if DEBUG
+                        Console.WriteLine("RGBA 16-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString());
+#endif
+                        /* Set type, RGBA 16-bit */
+                        Format = GBI.G_IM_FMT_RGBA;
                         Size = GBI.G_IM_SIZ_16b;
 
                         /* Generate texture buffer */
                         Data = new byte[Material.Width * Material.Height * 2];
                         Palette = null;
 
-                        /* Loop through pixels, convert to IA 16-bit, write to texture buffer */
+                        /* Loop through pixels, convert to RGBA5551, write to texture buffer */
                         for (int i = 0, j = 0; i < Raw.Length; i += 4, j += 2)
                         {
-                            Data[j] = Raw[i + 2];
-                            Data[j + 1] = Raw[i + 3];
+                            ushort RGBA5551 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
+                            Data[j] = (byte)(RGBA5551 >> 8);
+                            Data[j + 1] = (byte)(RGBA5551 & 0xFF);
                         }
-                    }
-                    else
-                    {
-                        /* Uh-oh, too many grayshades OR invalid size! */
-                        Console.WriteLine("Error! Too many grayshades in texture OR invalid size!");
-
-                        SetInvalidTexture(Material);
-                    }
-                }
-                else
-                {
-                    /* Convert to I */
-                    if (UniqueColors.Count <= 16)
-                    {
-                        Console.WriteLine("I 4-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
-
-                        /* Set type, I 4-bit */
-                        Format = GBI.G_IM_FMT_I;
-                        Size = GBI.G_IM_SIZ_4b;
-
-                        /* Generate texture buffer */
-                        Data = new byte[(Material.Width * Material.Height) / 2];
-                        Palette = null;
-
-                        /* Loop through pixels, convert to I 4-bit, write to texture buffer */
-                        for (int i = 0, j = 0; i < Raw.Length; i += 8, j++)
-                        {
-                            Data[j] = (byte)(((Raw[i] / 16) << 4) | ((Raw[i + 4] / 16) & 0xF));
-                        }
-                    }
-                    else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 4096)
-                    {
-                        Console.WriteLine("I 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " grayshades");
-
-                        /* Set type, I 8-bit */
-                        Format = GBI.G_IM_FMT_I;
-                        Size = GBI.G_IM_SIZ_8b;
-
-                        /* Generate texture buffer */
-                        Data = new byte[Material.Width * Material.Height];
-                        Palette = null;
-
-                        /* Loop through pixels, convert to I 8-bit, write to texture buffer */
-                        for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
-                        {
-                            Data[j] = Raw[i];
-                        }
-                    }
-                    else
-                    {
-                        /* Uh-oh, too many grayshades OR invalid size! */
-                        Console.WriteLine("Error! Too many grayshades in texture OR invalid size!");
-
-                        SetInvalidTexture(Material);
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                /* Convert to CI */
-                if (UniqueColors.Count <= 16)
-                {
-                    Console.WriteLine("CI 4-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");
-
-                    /* Set type, CI 4-bit */
-                    Format = GBI.G_IM_FMT_CI;
-                    Size = GBI.G_IM_SIZ_4b;
-
-                    /* Generate texture buffer */
-                    Data = new byte[(Material.Width * Material.Height) / 2];
-
-                    /* Generate 16-color RGBA5551 palette */
-                    Palette = GeneratePalette(UniqueColors, 16);
-
-                    /* Loop through pixels, get palette indexes, write to texture buffer */
-                    for (int i = 0, j = 0; i < Raw.Length; i += 8, j++)
-                    {
-                        ushort RGBA5551_1 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
-                        ushort RGBA5551_2 = ToRGBA5551(Raw[i + 6], Raw[i + 5], Raw[i + 4], Raw[i + 7]);
-                        byte Value = (byte)(
-                            ((GetPaletteIndex(Palette, RGBA5551_1)) << 4) |
-                            ((GetPaletteIndex(Palette, RGBA5551_2) & 0xF)));
-                        Data[j] = Value;
-                    }
-                }
-                else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 2048)
-                {
-                    Console.WriteLine("CI 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");
-
-                    /* Set type, CI 8-bit */
-                    Format = GBI.G_IM_FMT_CI;
-                    Size = GBI.G_IM_SIZ_8b;
-
-                    /* Generate texture buffer */
-                    Data = new byte[Material.Width * Material.Height];
-
-                    /* Generate 256-color RGBA5551 palette */
-                    Palette = GeneratePalette(UniqueColors, 256);
-
-                    /* Loop through pixels, get palette indexes, write to texture buffer */
-                    for (int i = 0, j = 0; i < Raw.Length; i += 4, j++)
-                    {
-                        ushort RGBA5551 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
-                        Data[j] = (byte)GetPaletteIndex(Palette, RGBA5551);
-                    }
-                }
-                else
-                {
-                    /* Convert to RGBA */
-                    Console.WriteLine("RGBA 16-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString());
-
-                    /* Set type, RGBA 16-bit */
-                    Format = GBI.G_IM_FMT_RGBA;
-                    Size = GBI.G_IM_SIZ_16b;
-
-                    /* Generate texture buffer */
-                    Data = new byte[Material.Width * Material.Height * 2];
-                    Palette = null;
-
-                    /* Loop through pixels, convert to RGBA5551, write to texture buffer */
-                    for (int i = 0, j = 0; i < Raw.Length; i += 4, j += 2)
-                    {
-                        ushort RGBA5551 = ToRGBA5551(Raw[i + 2], Raw[i + 1], Raw[i], Raw[i + 3]);
-                        Data[j] = (byte)(RGBA5551 >> 8);
-                        Data[j + 1] = (byte)(RGBA5551 & 0xFF);
-                    }
-                }
-                //else
-                //{
-                //    /* Uh-oh, too many colors in texture! */
-                //    Console.WriteLine("Error! Too many unique colors in texture -> " + UniqueColors.Count + "!");
-
-                //    SetInvalidTexture(Material);
-                //}
+                System.Windows.Forms.MessageBox.Show("Material '" + Material.DisplayName + "': " + ex.Message, "Exception", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                SetInvalidTexture(Material);
             }
 
             /* Pack texture type */

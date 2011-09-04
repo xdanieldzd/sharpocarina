@@ -12,6 +12,8 @@ namespace SharpOcarina
 {
     public class NDisplayList
     {
+        #region Variables/Constructor/etc.
+
         public byte[] Data;
         public uint Offset = 0;
 
@@ -63,6 +65,8 @@ namespace SharpOcarina
             IsOutdoors = _IsOutdoors;
             Culling = _Culling;
         }
+
+        #endregion
 
         #region General Macros
 
@@ -252,6 +256,9 @@ namespace SharpOcarina
 
         private void LoadTLUT16(ref List<byte> DList, int Pal, uint DRAM)
         {
+#if DEBUG
+            Console.WriteLine("LoadTLUT16 -> pal: " + Pal.ToString() + ", address: " + DRAM.ToString("X8"));
+#endif
             Helpers.Append64(ref DList, SetTextureImage(GBI.G_IM_FMT_RGBA, GBI.G_IM_SIZ_16b, 1, (DRAM & 0xFFFFFFFF)));
             Helpers.Append64(ref DList, TileSync());
             Helpers.Append64(ref DList, SetTile(0, 0, 0, (256 + (((Pal) & 0xF) * 16)), GBI.G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0));
@@ -262,6 +269,9 @@ namespace SharpOcarina
 
         private void LoadTLUT256(ref List<byte> DList, uint DRAM)
         {
+#if DEBUG
+            Console.WriteLine("LoadTLUT256 -> offset: " + DRAM.ToString("X8"));
+#endif
             Helpers.Append64(ref DList, SetTextureImage(GBI.G_IM_FMT_RGBA, GBI.G_IM_SIZ_16b, 1, (DRAM & 0xFFFFFFFF)));
             Helpers.Append64(ref DList, TileSync());
             Helpers.Append64(ref DList, SetTile(0, 0, 0, 256, GBI.G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0));
@@ -290,6 +300,8 @@ namespace SharpOcarina
         }
 
         #endregion
+
+        #region Conversion
 
         public void InsertTextureLoad(ref List<byte> DList, int Width, int Height, NTexture ThisTexture, int TexPal, int RenderTile, int CMS, int CMT)
         {
@@ -340,15 +352,9 @@ namespace SharpOcarina
                 Helpers.Append64(ref DList, SetTextureLUT(GBI.G_TT_RGBA16));
 
                 if (ThisTexture.Size == GBI.G_IM_SIZ_4b)
-                {
-                    Console.WriteLine("LoadTLUT16 -> pal: " + TexPal.ToString() + ", address: " + ThisTexture.PalOffset.ToString("X8"));
                     LoadTLUT16(ref DList, TexPal, 0x03000000 | ThisTexture.PalOffset);
-                }
                 else if (ThisTexture.Size == GBI.G_IM_SIZ_8b)
-                {
-                    Console.WriteLine("LoadTLUT256 -> offset: " + ThisTexture.PalOffset.ToString("X8"));
                     LoadTLUT256(ref DList, 0x03000000 | ThisTexture.PalOffset);
-                }
             }
             else
             {
@@ -467,7 +473,7 @@ namespace SharpOcarina
                             if (VertList.Count <= 29 + i)
                                 VertList.Add(NewVert);
                             else
-                                Console.WriteLine("Uwah, vertex buffer overflowed! Shouldn't happen!!");
+                                throw new Exception("Vertex buffer overflow; this should never happen!");
 
                             VtxNo = VertList.Count - 1;
                         }
@@ -548,5 +554,7 @@ namespace SharpOcarina
 
             Offset = (uint)(BaseOffset + VertData.Count);
         }
+
+        #endregion
     }
 }

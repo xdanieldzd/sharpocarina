@@ -202,7 +202,9 @@ namespace SharpOcarina
                 int RoomInjectOffset = _Rooms[0].InjectOffset;
                 for (int i = 0; i < _Rooms.Count; i++)
                 {
+#if DEBUG
                     Console.WriteLine("INJECTING TO " + Filename + ", OFFSET " + RoomInjectOffset.ToString("X"));
+#endif
                     Helpers.GenericInject(Filename, RoomInjectOffset, _Rooms[i].RoomData.ToArray(), _Rooms[i].RoomData.Count);
                     RoomInjectOffset += _Rooms[i].FullDataLength;
                 }
@@ -211,12 +213,16 @@ namespace SharpOcarina
             {
                 for (int i = 0; i < _Rooms.Count; i++)
                 {
+#if DEBUG
                     Console.WriteLine("INJECTING TO " + Filename + ", OFFSET " + _Rooms[i].InjectOffset.ToString("X"));
+#endif
                     Helpers.GenericInject(Filename, _Rooms[i].InjectOffset, _Rooms[i].RoomData.ToArray(), _Rooms[i].RoomData.Count);
                 }
             }
 
+#if DEBUG
             Console.WriteLine("INJECTING TO " + Filename + ", OFFSET " + InjectOffset.ToString("X"));
+#endif
             Helpers.GenericInject(Filename, InjectOffset, SceneData.ToArray(), SceneData.Count);
 
             List<byte> Temp = new List<byte>();
@@ -237,14 +243,18 @@ namespace SharpOcarina
             for (int i = 0; i < _Rooms.Count; i++)
             {
                 string SaveRoomTo = Filepath + Helpers.MakeValidFileName(Name) + " (Room " + i.ToString() + ").zmap";
+#if DEBUG
                 Console.WriteLine("SAVING DATA TO " + SaveRoomTo);
+#endif
                 BinaryWriter BWR = new BinaryWriter(File.OpenWrite(SaveRoomTo));
                 BWR.Write(_Rooms[i].RoomData.ToArray());
                 BWR.Close();
             }
 
             string SaveSceneTo = Filepath + Helpers.MakeValidFileName(Name) + " (Scene).zscene";
+#if DEBUG
             Console.WriteLine("SAVING DATA TO " + SaveSceneTo);
+#endif
             BinaryWriter BWS = new BinaryWriter(File.OpenWrite(SaveSceneTo));
             BWS.Write(SceneData.ToArray());
             BWS.Close();
@@ -329,7 +339,9 @@ namespace SharpOcarina
 
                     /* See if we've got a CI-format texture... */
                     int Format = ((Texture.Type & 0xE0) >> 5);
+#if DEBUG
                     Console.WriteLine("Texture format N64: " + Format.ToString("X2"));
+#endif
                     if (Format == GBI.G_IM_FMT_CI)
                     {
                         /* If it's CI, add current offset to palette offset list */
