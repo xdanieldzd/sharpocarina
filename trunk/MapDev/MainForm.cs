@@ -266,6 +266,7 @@ namespace SharpOcarina
 
             if (CurrentScene != null && NowLoading == false)
             {
+                /* Rendering base settings... */
                 if (CurrentScene.IsOutdoors == true)
                     GL.ClearColor(Color.FromArgb(255, 51, 128, 179));
                 else
@@ -282,6 +283,7 @@ namespace SharpOcarina
 
                 foreach (ZScene.ZRoom Room in CurrentScene.Rooms)
                 {
+                    /* Render room actors... */
                     if (Room == ((ZScene.ZRoom)listBox1.SelectedItem))
                     {
                         GL.Disable(EnableCap.Texture2D);
@@ -293,18 +295,20 @@ namespace SharpOcarina
                                 Convert.ToBoolean(i == actorEditControl1.ActorNumber - 1));
                         }
                     }
-
+                    
                     if (ShowRoomModels == true)
                     {
+                        /* Prepare... */
                         GL.PushMatrix();
                         GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
 
-                        GL.Enable(EnableCap.PolygonOffsetFill);
-                        GL.PolygonOffset(2.0f, 2.0f);
+                        //GL.Enable(EnableCap.PolygonOffsetFill);
+                        //GL.PolygonOffset(2.0f, 2.0f);
 
                         GL.Enable(EnableCap.CullFace);
                         GL.CullFace(CullFaceMode.Back);
 
+                        /* Faked environmental lighting... */
                         if (ApplyEnvLighting == true)
                         {
                             GL.Enable(EnableCap.ColorMaterial);
@@ -314,8 +318,15 @@ namespace SharpOcarina
                             GL.Enable(EnableCap.Light0);
                         }
 
-                        Room.ObjModel.Render();
+                        /* Render groups... */
+                        for (int i = 0; i < Room.ObjModel.Groups.Count; i++)
+                        {
+                            GL.Enable(EnableCap.Texture2D);
+                            GL.Color4(Color.FromArgb((int)Room.ObjModel.Groups[i].TintAlpha));
+                            Room.ObjModel.Render(i);
+                        }
 
+                        /* Faked environmental lighting... */
                         if (ApplyEnvLighting == true)
                         {
                             GL.Disable(EnableCap.ColorMaterial);
@@ -327,6 +338,7 @@ namespace SharpOcarina
                     }
                 }
 
+                /* Render spawn points... */
                 GL.Disable(EnableCap.Texture2D);
                 for (int i = 0; i < CurrentScene.SpawnPoints.Count; i++)
                     DrawActorModel(CurrentScene.SpawnPoints[i],
@@ -334,12 +346,14 @@ namespace SharpOcarina
                         ActorPyramidGLID,
                         Convert.ToBoolean(i == actorEditControl3.ActorNumber - 1));
 
+                /* Render transition actors... */
                 for (int i = 0; i < CurrentScene.Transitions.Count; i++)
                     DrawActorModel(CurrentScene.Transitions[i],
                         (i == actorEditControl2.ActorNumber - 1 ? Color.FromArgb(255, 0, 0) : Color.FromArgb(255, 192, 192)),
                         ActorPyramidGLID,
                         Convert.ToBoolean(i == actorEditControl2.ActorNumber - 1));
 
+                /* Render waterboxes... */
                 GL.Disable(EnableCap.CullFace);
                 foreach (ZWaterbox WBox in CurrentScene.Waterboxes)
                 {
@@ -372,12 +386,29 @@ namespace SharpOcarina
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                 }
 
+                /* Render collision model... */
                 if (ShowCollisionModel == true && CurrentScene.ColModel != null)
                 {
                     GL.PushMatrix();
                     GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
                     CurrentScene.ColModel.Render();
                     GL.PopMatrix();
+                }
+
+                /* Render group highlight... */
+                if (((ObjFile.Group)listBox2.SelectedItem) != null)
+                {
+                    GL.Disable(EnableCap.Texture2D);
+                    GL.Enable(EnableCap.PolygonOffsetFill);
+                    GL.PolygonOffset(-5.0f, -5.0f);
+
+                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                    GL.Color4(1.0f, 0.5f, 0.0f, 0.5f);
+                    ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Render(((ObjFile.Group)listBox2.SelectedItem));
+
+                    GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
+                    GL.PolygonOffset(0.0f, 0.0f);
+                    GL.Enable(EnableCap.Texture2D);
                 }
             }
 
@@ -1069,21 +1100,6 @@ namespace SharpOcarina
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < CurrentScene.Rooms.Count; i++)
-            {
-                for (int j = 0; j < CurrentScene.Rooms[i].ObjModel.Groups.Count; j++)
-                {
-                    CurrentScene.Rooms[i].ObjModel.Groups[j].Highlight = false;
-                    CurrentScene.Rooms[i].ObjModel.Prepare(false);
-                }
-            }
-
-            if (listBox2.SelectedItem != null)
-            {
-                ((ObjFile.Group)listBox2.SelectedItem).Highlight = true;
-                ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Prepare(false);
-            }
-
             UpdateGroupSelect();
         }
 
@@ -1400,7 +1416,7 @@ namespace SharpOcarina
                 MaxCoordinate.Z = Math.Max(MaxCoordinate.Z, Vtx.Z * CurrentScene.Scale);
             }
 
-            CurrentScene.Waterboxes.Add(new ZWaterbox((float)MinCoordinate.X, (float)-20.0f, (float)MinCoordinate.Z, (float)(MaxCoordinate.X - MinCoordinate.X), (float)(MaxCoordinate.Z - MinCoordinate.Z), 0x0100));
+            CurrentScene.Waterboxes.Add(new ZWaterbox((float)MinCoordinate.X, (float)-20.0f, (float)MinCoordinate.Z, (float)(MaxCoordinate.X - MinCoordinate.X), (float)(MaxCoordinate.Z - MinCoordinate.Z), 0x00000100));
             UpdateForm();
             numericUpDown10.Value = numericUpDown10.Maximum;
         }
@@ -1420,7 +1436,7 @@ namespace SharpOcarina
                 numericUpDown10.Maximum = CurrentScene.Waterboxes.Count;
                 numericUpDown10.Enabled = true;
 
-                numericTextBox6.Text = CurrentScene.Waterboxes[(int)numericUpDown10.Value - 1].Properties.ToString("X4");
+                numericTextBox6.Text = CurrentScene.Waterboxes[(int)numericUpDown10.Value - 1].Properties.ToString("X8");
                 numericUpDownEx2.Value = (decimal)CurrentScene.Waterboxes[(int)numericUpDown10.Value - 1].XPos;
                 numericUpDownEx4.Value = (decimal)CurrentScene.Waterboxes[(int)numericUpDown10.Value - 1].YPos;
                 numericUpDownEx6.Value = (decimal)CurrentScene.Waterboxes[(int)numericUpDown10.Value - 1].ZPos;
@@ -1559,7 +1575,7 @@ namespace SharpOcarina
                 }
 
                 numericTextBox1.Text = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].Raw.ToString("X16");
-                
+
                 foreach (Control Ctrl in panel2.Controls)
                     Ctrl.Enabled = true;
 
@@ -1589,7 +1605,7 @@ namespace SharpOcarina
                 radioButton6.Checked = false;
 
                 numericTextBox1.Text = string.Empty;
-                
+
                 foreach (Control Ctrl in panel2.Controls)
                     Ctrl.Enabled = false;
 

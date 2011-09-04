@@ -612,8 +612,8 @@ namespace SharpOcarina
                 Helpers.Append16(ref SceneData, (ushort)Convert.ToInt16(WBox.ZPos));
                 Helpers.Append16(ref SceneData, (ushort)Convert.ToInt16(WBox.XSize));
                 Helpers.Append16(ref SceneData, (ushort)Convert.ToInt16(WBox.ZSize));
-                Helpers.Append32(ref SceneData, 0x00000000);
-                Helpers.Append16(ref SceneData, WBox.Properties);
+                Helpers.Append16(ref SceneData, 0x0000);
+                Helpers.Append32(ref SceneData, WBox.Properties);
             }
             Helpers.Overwrite32(ref SceneData, CmdWaterBoxes, (uint)(Waterboxes.Count << 16));
             Helpers.Overwrite32(ref SceneData, CmdWaterBoxes + 4, (uint)(0x02000000 | WaterBoxesOffset));
