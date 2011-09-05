@@ -398,6 +398,9 @@ namespace SharpOcarina
                 /* Render group highlight... */
                 if (((ObjFile.Group)listBox2.SelectedItem) != null)
                 {
+                    GL.PushMatrix();
+                    GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
+
                     GL.Disable(EnableCap.Texture2D);
                     GL.Enable(EnableCap.PolygonOffsetFill);
                     GL.PolygonOffset(-5.0f, -5.0f);
@@ -409,6 +412,8 @@ namespace SharpOcarina
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                     GL.PolygonOffset(0.0f, 0.0f);
                     GL.Enable(EnableCap.Texture2D);
+
+                    GL.PopMatrix();
                 }
             }
 
