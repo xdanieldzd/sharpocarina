@@ -6,7 +6,7 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
 --------------------
 0) Table of Contents
 --------------------
- 1) System Requirements
+ 1) Requirements
  2) User Interface
   a) Menus
   b) General Scene Data
@@ -17,14 +17,17 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
  3) FAQ
  4) Credits & Thanks
 
-----------------------
-1) System Requirements
-----------------------
- ...are modest. No, really, it should run on pretty much every kinda Windows PC out there. Unlike
- SayakaGL or OZMAV2, it doesn't require any fancy shader extensions and such (yet?) and thus the
- rendering of the scene preview should be glitch-free on anything that's reasonably modern. What it
- -does- require is the most recent version of Microsoft's .NET Framework 4, which, in case you
- haven't installed it yet, can be found in their download center.
+---------------
+1) Requirements
+---------------
+ ...are modest. No, really, system-wise, it should run on pretty much every kinda Windows PC out
+ there. Unlike SayakaGL or OZMAV2, it doesn't require any fancy shader extensions and such (yet?)
+ and thus the rendering of the scene preview should be glitch-free on anything that's reasonably
+ modern. What it -does- require is the most recent version of Microsoft's .NET Framework 4, which,
+ in case you haven't installed it yet, can be found in their download center.
+
+ As for ROM requirement, SharpOcarina should -technically- support all Zelda games on the N64, but
+ only supports ROM injection with the MQ Debug ROM. See the FAQ for some more details.
 
 -----------------
 2) User Interface
@@ -74,6 +77,8 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
                                  -does not- check if it overwrites any existing data.
 
   | Help |
+   - Show Readme: You really want to create an infinite loop, don't you?
+
    - About...: Take a wild guess.
 
  b) General Scene Data
