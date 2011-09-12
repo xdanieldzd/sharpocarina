@@ -170,6 +170,8 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
    - Exit Number: Which exit walking onto this collision type should trigger, according to the
                   scene's exit list. Note that 0 disables the trigger.
 
+   - Is Hookshot-able?: Allows you to change if the hookshot sticks to the surface or not.
+
    - Echo Range: Change the echo level; overrides global settings.
 
    - Environment: Select which environment setup to use; remember that it has to be defined,
