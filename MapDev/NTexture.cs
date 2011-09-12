@@ -138,7 +138,7 @@ namespace SharpOcarina
         /// <returns>16-bit RGBA5551 value</returns>
         private ushort ToRGBA5551(byte R, byte G, byte B, byte A)
         {
-            return (ushort)((((R >> 1) & 0xF8) << 8) | (((G >> 1) & 0xF8) << 3) | (((B >> 1) & 0xF8) >> 2) | (A >> 7));
+            return (ushort)((((R) << 8) & 0xF800) | (((G) << 3) & 0x7C0) | (((B) >> 2) & 0x3E) | (((A) >> 7) & 0x1));
         }
 
         /// <summary>
