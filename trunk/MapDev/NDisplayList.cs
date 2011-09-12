@@ -442,7 +442,7 @@ namespace SharpOcarina
                 }
 
                 Helpers.Append64(ref DList, ClearGeometryMode(GBI.G_TEXTURE_GEN | GBI.G_TEXTURE_GEN_LINEAR | (Culling == false ? GBI.G_CULL_BACK : 0)));
-                Helpers.Append64(ref DList, SetGeometryMode(GBI.G_FOG | GBI.G_LIGHTING | (IsOutdoors == true ? 0 : GBI.G_SHADE)));
+                Helpers.Append64(ref DList, SetGeometryMode(GBI.G_FOG | GBI.G_LIGHTING | (IsOutdoors == true ? 0 : GBI.G_SHADING_SMOOTH)));
                 Helpers.Append64(ref DList, SetPrimColor(TintAlpha));
 
                 /* Parse triangles, generate VTX and TRI commands */
@@ -457,9 +457,7 @@ namespace SharpOcarina
                         NVertex NewVert = new NVertex(
                             new Vector3d(Obj.Vertices[Tri.VertIndex[i]].X, Obj.Vertices[Tri.VertIndex[i]].Y, Obj.Vertices[Tri.VertIndex[i]].Z),
                             new Vector2d(Obj.TextureCoordinates[Tri.TexCoordIndex[i]].U * TexXR, Obj.TextureCoordinates[Tri.TexCoordIndex[i]].V * TexYR),
-                            new Color4(0x7F, 0x7F, 0x7F, 0xFF),
-                            //new Color4((byte)(0x7F * Obj.Vertices[Tri.VertIndex[i]].VN.X), (byte)(0x7F * Obj.Vertices[Tri.VertIndex[i]].VN.Y), (byte)(0x7F * Obj.Vertices[Tri.VertIndex[i]].VN.Z), (byte)0xFF),
-                            /* ^- vertex colors are terrible, derived from normals */
+                            new Color4(Obj.Materials[Obj.Materials.IndexOf(Surf.Material)].Kd[0] * 255, Obj.Materials[Obj.Materials.IndexOf(Surf.Material)].Kd[1] * 255, Obj.Materials[Obj.Materials.IndexOf(Surf.Material)].Kd[2] * 255, 0xFF),
                             Obj.Vertices[Tri.VertIndex[i]].VN);
 
                         int VtxNo = VertList.FindIndex(FindObj =>

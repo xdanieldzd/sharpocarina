@@ -39,6 +39,13 @@ namespace SharpOcarina
         }
 
         [XmlIgnore]
+        public bool IsHookshotable
+        {
+            get { return ((Raw & 0x0000000000020000) != 0); }
+            set { if (value == true) { Raw |= 0x20000; } else { Raw &= ~((uint)0x20000); } }
+        }
+
+        [XmlIgnore]
         public int EchoRange
         {
             get { return (int)((Raw & 0x000000000000F000) >> 12); }
@@ -55,8 +62,8 @@ namespace SharpOcarina
         [XmlIgnore]
         public bool IsSteep
         {
-            get { return (((Raw & 0x0000000000000030) >> 4) == 1); }
-            set { Raw = ((Raw & 0xFFFFFFFFFFFFFFEF) | ((uint)Convert.ToByte(value) << 4)); }
+            get { return ((Raw & 0x0000000000000030) == 0x10); }
+            set { if (value == true) { Raw |= 0x10; } else { Raw &= ~((uint)0x10); } }
         }
 
         [XmlIgnore]

@@ -1190,6 +1190,7 @@ namespace SharpOcarina
             ListEditBox.KeyPress += new KeyPressEventHandler(this.EditOverObjEd);
             ListEditBox.LostFocus += new EventHandler(this.FocusOverObjEd);
             listBox3.Controls.AddRange(new System.Windows.Forms.Control[] { this.ListEditBox });
+            this.ListEditBox.Focus();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1549,6 +1550,7 @@ namespace SharpOcarina
                 numericUpDownEx9.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].GroundType;
                 numericUpDownEx8.Value = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].TerrainType;
                 checkBox2.Checked = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].IsSteep;
+                checkBox4.Checked = CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].IsHookshotable;
 
                 if (CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].ClimbingCrawlingFlags == 0x0)
                     radioButton1.Checked = true;
@@ -1599,6 +1601,7 @@ namespace SharpOcarina
                 numericUpDownEx9.Value = 0;
                 numericUpDownEx8.Value = 0;
                 checkBox2.Checked = false;
+                checkBox4.Checked = false;
 
                 radioButton1.Checked = false;
                 radioButton2.Checked = false;
@@ -1742,6 +1745,12 @@ namespace SharpOcarina
             UpdateForm();
         }
 
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            CurrentScene.PolyTypes[(int)numericUpDown3.Value - 1].IsHookshotable = checkBox4.Checked;
+            UpdateForm();
+        }
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             UpdateClimbableCrawlableFlags();
@@ -1795,6 +1804,7 @@ namespace SharpOcarina
             ListEditBox.KeyPress += new KeyPressEventHandler(this.EditOverExitEd);
             ListEditBox.LostFocus += new EventHandler(this.FocusOverExitEd);
             listBox4.Controls.AddRange(new System.Windows.Forms.Control[] { this.ListEditBox });
+            this.ListEditBox.Focus();
         }
 
         private void button6_Click(object sender, EventArgs e)

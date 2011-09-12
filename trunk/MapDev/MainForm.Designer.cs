@@ -168,6 +168,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1188,6 +1189,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.checkBox4);
             this.panel2.Controls.Add(this.numericUpDownEx10);
             this.panel2.Controls.Add(this.label17);
             this.panel2.Controls.Add(this.panel5);
@@ -1863,6 +1865,17 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(241, 57);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(112, 17);
+            this.checkBox4.TabIndex = 87;
+            this.checkBox4.Text = "Is Hookshot-able?";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2075,6 +2088,7 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private NumericUpDownEx numericUpDownEx10;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }
 
