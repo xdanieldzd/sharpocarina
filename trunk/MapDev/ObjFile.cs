@@ -222,6 +222,7 @@ namespace SharpOcarina
 
         private char[] TokenSeperator = { ' ', '\t' };
         private char[] TokenValSeperator = { '/' };
+        private List<string> ValidImageTypes = new List<string>(new string[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif"});
 
         private string MtlFilename = string.Empty;
         private string CurrentMtlName = string.Empty;
@@ -336,16 +337,20 @@ namespace SharpOcarina
                         /* Material to use */
                         CurrentMtlName = Tokenized[1];
                         break;
-
+						
                     case "f":
-                        /* Face/triangle */
-                        int[] VIndex = new int[] { 0, 0, 0 };
-                        int[] TIndex = new int[] { 0, 0, 0 };
-                        int[] NIndex = new int[] { 0, 0, 0 };
+                        /* Face/triangle - http://z64.spinout182.com/index.php?topic=320.msg2229#msg2229 */
+                        int[] VIndex = new int[16];
+                        int[] TIndex = new int[16];
+                        int[] NIndex = new int[16];
 
-                        for (int i = 0; i < 3; i++)
+                        // Triangulate face
+                        for (int i = 0; i < Tokenized.Length-1; i++)
                         {
                             string[] TokenizedVals = Tokenized[i + 1].Split(TokenValSeperator);
+                            int[] VLocal = new int[3];
+                            int[] TLocal = new int[3];
+                            int[] NLocal = new int[3];
 
                             int.TryParse(TokenizedVals[0], out VIndex[i]);
                             int.TryParse(TokenizedVals[1], out TIndex[i]);
@@ -355,12 +360,21 @@ namespace SharpOcarina
                             VIndex[i] -= 1;
                             TIndex[i] -= 1;
                             NIndex[i] -= 1;
-                        }
 
-                        if (VIndex[0] != -1 && VIndex[1] != -1 && VIndex[2] != -1)
-                            NewGroup.Triangles.Add(new Triangle(CurrentMtlName, VIndex, TIndex, NIndex));
-                        break;
-                }
+                            // Last vertex of triangle, or index to next point in the face (e.g. quad)
+                            if(i >= 2){
+                                if (VIndex[0 + (i - 2)] != -1 && VIndex[1 + (i - 2)] != -1 && VIndex[2 + (i - 2)] != -1)
+                                {
+                                    VLocal[0] = VIndex[0];     TLocal[0] = TIndex[0];     NLocal[0] = NIndex[0];
+                                    VLocal[1] = VIndex[i - 1]; TLocal[1] = TIndex[i - 1]; NLocal[1] = NIndex[i - 1];
+                                    VLocal[2] = VIndex[i];     TLocal[2] = TIndex[i];     NLocal[2] = NIndex[i];
+                                    
+                                    NewGroup.Triangles.Add(new Triangle(CurrentMtlName, VLocal, TLocal, NLocal));
+                                }
+                            }
+                        }
+                        
+                        break;                }
             }
 
             AddGroup(NewGroup);
@@ -563,6 +577,8 @@ namespace SharpOcarina
                         if (_Mats[i].TexImage != null) _Mats[i].TexImage.Dispose();
 
                         LoadPath = Path.IsPathRooted(_Mats[i].map_Ka) == true ? _Mats[i].map_Ka : _BasePath + _Mats[i].map_Ka;
+                        if (ValidImageTypes.IndexOf(Path.GetExtension(LoadPath).ToLowerInvariant()) == -1) throw new Exception();
+
                         _Mats[i].TexImage = new Bitmap(Bitmap.FromFile(LoadPath));
                         _Mats[i].GLID = TexUtil.CreateTextureFromBitmap(_Mats[i].TexImage);
                         _Mats[i].Width = _Mats[i].TexImage.Width;
@@ -571,6 +587,11 @@ namespace SharpOcarina
                     catch (FileNotFoundException)
                     {
                         MessageBox.Show("Texture image " + LoadPath + " not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        continue;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Texture image " + LoadPath + " is in " + Path.GetExtension(LoadPath).ToUpperInvariant().Substring(1) + " format and cannot be loaded!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         continue;
                     }
                 }

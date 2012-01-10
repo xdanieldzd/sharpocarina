@@ -42,42 +42,42 @@ namespace SharpOcarina
         public bool IsHookshotable
         {
             get { return ((Raw & 0x0000000000020000) != 0); }
-            set { if (value == true) { Raw |= 0x20000; } else { Raw &= ~((uint)0x20000); } }
+            set { if (value == true) { Raw |= 0x20000; } else { Raw &= ~((ulong)0x20000); } }
         }
 
         [XmlIgnore]
         public int EchoRange
         {
             get { return (int)((Raw & 0x000000000000F000) >> 12); }
-            set { Raw = ((Raw & 0xFFFFFFFFFFFF0FFF) | ((uint)(value & 0xF) << 12)); }
+            set { Raw = ((Raw & 0xFFFFFFFFFFFF0FFF) | ((ulong)(value & 0xF) << 12)); }
         }
 
         [XmlIgnore]
         public int EnvNumber
         {
             get { return (int)((Raw & 0x0000000000000F00) >> 8); }
-            set { Raw = ((Raw & 0xFFFFFFFFFFFFF0FF) | ((uint)(value & 0xF) << 8)); }
+            set { Raw = ((Raw & 0xFFFFFFFFFFFFF0FF) | ((ulong)(value & 0xF) << 8)); }
         }
 
         [XmlIgnore]
         public bool IsSteep
         {
             get { return ((Raw & 0x0000000000000030) == 0x10); }
-            set { if (value == true) { Raw |= 0x10; } else { Raw &= ~((uint)0x10); } }
+            set { if (value == true) { Raw |= 0x10; } else { Raw &= ~((ulong)0x10); } }
         }
 
         [XmlIgnore]
         public int TerrainType
         {
             get { return (int)((Raw & 0x00000000000000F0) >> 4); }
-            set { Raw = ((Raw & 0xFFFFFFFFFFFFFF0F) | ((uint)(value & 0xF) << 4)); }
+            set { Raw = ((Raw & 0xFFFFFFFFFFFFFF0F) | ((ulong)(value & 0xF) << 4)); }
         }
 
         [XmlIgnore]
         public int GroundType
         {
             get { return (int)(Raw & 0x000000000000000F); }
-            set { Raw = ((Raw & 0xFFFFFFFFFFFFFFF0) | ((uint)(value & 0xF))); }
+            set { Raw = ((Raw & 0xFFFFFFFFFFFFFFF0) | (ulong)((uint)(value & 0xF))); }
         }
     }
 }

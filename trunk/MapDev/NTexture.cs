@@ -189,7 +189,6 @@ namespace SharpOcarina
         {
             try
             {
-
                 BitmapData RawBmp = null;
                 byte[] Raw = null;
 
