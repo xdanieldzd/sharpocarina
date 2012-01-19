@@ -208,10 +208,10 @@ namespace SharpOcarina
                         PixelFormat.Format32bppArgb
                     );
 
-                    int Size = RawBmp.Height * RawBmp.Stride;
-                    Raw = new byte[Size];
+                    int TotalSize = RawBmp.Height * RawBmp.Stride;
+                    Raw = new byte[TotalSize];
 
-                    System.Runtime.InteropServices.Marshal.Copy(RawBmp.Scan0, Raw, 0, Size);
+                    System.Runtime.InteropServices.Marshal.Copy(RawBmp.Scan0, Raw, 0, TotalSize);
                 }
                 finally
                 {
@@ -222,7 +222,7 @@ namespace SharpOcarina
                 //throw new Exception("Too many grayshades in texture OR invalid size");
                 List<Color> UniqueColors = GetUniqueColors(Material.TexImage);
 
-                if (IsGrayscale == true)
+                if (IsGrayscale == true && Material.ForceRGBA == false)
                 {
                     if (HasAlpha == true)
                     {
@@ -323,7 +323,7 @@ namespace SharpOcarina
                 else
                 {
                     /* Convert to CI */
-                    if (UniqueColors.Count <= 16)
+                    if (UniqueColors.Count <= 16 && Material.ForceRGBA == false)
                     {
 #if DEBUG
                         Console.WriteLine("CI 4-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");
@@ -349,7 +349,7 @@ namespace SharpOcarina
                             Data[j] = Value;
                         }
                     }
-                    else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 2048)
+                    else if (UniqueColors.Count <= 256 && Material.Width * Material.Height <= 2048 && Material.ForceRGBA == false)
                     {
 #if DEBUG
                         Console.WriteLine("CI 8-bit <- " + Material.Name + ", " + Material.Width.ToString() + "*" + Material.Height.ToString() + ", " + UniqueColors.Count.ToString() + " unique colors");

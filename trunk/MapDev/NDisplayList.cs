@@ -303,7 +303,7 @@ namespace SharpOcarina
 
         #region Conversion
 
-        public void InsertTextureLoad(ref List<byte> DList, int Width, int Height, NTexture ThisTexture, int TexPal, int RenderTile, int CMS, int CMT)
+        public void InsertTextureLoad(ref List<byte> DList, int Width, int Height, NTexture ThisTexture, int TexPal, int RenderTile, int CMS, int CMT, int MultiShiftS, int MultiShiftT)
         {
             /* Select appropriate load block macro to use (LoadTextureBlock or LoadMultiBlock) */
             if (RenderTile == GBI.G_TX_RENDERTILE)
@@ -334,7 +334,7 @@ namespace SharpOcarina
                         ThisTexture.Format, (uint)Width, (uint)Height, (uint)TexPal,
                         (uint)CMS, (uint)CMT,
                         (uint)Helpers.Log2(Width), (uint)Helpers.Log2(Height),
-                        GBI.G_TX_NOLOD, GBI.G_TX_NOLOD);
+                        (uint)MultiShiftS, (uint)MultiShiftT);
                 }
                 else
                 {
@@ -342,7 +342,7 @@ namespace SharpOcarina
                         ThisTexture.Format, ThisTexture.Size, (uint)Width, (uint)Height, (uint)TexPal,
                         (uint)CMS, (uint)CMT,
                         (uint)Helpers.Log2(Width), (uint)Helpers.Log2(Height),
-                        GBI.G_TX_NOLOD, GBI.G_TX_NOLOD);
+                        (uint)MultiShiftS, (uint)MultiShiftT);          // multitex scale HERE!!!
                 }
             }
 
@@ -417,8 +417,12 @@ namespace SharpOcarina
                 int TexPal = 0;
 
                 /* Insert texture loading commands */
-                InsertTextureLoad(ref DList, Surf.Material.Width, Surf.Material.Height, ThisTexture, TexPal, GBI.G_TX_RENDERTILE, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT);
-                //InsertTextureLoad(ref DList, Obj.Materials[1].Width, Obj.Materials[1].Height, Textures[1], TexPal, GBI.G_TX_RENDERTILE + 1, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT);  //multitex
+                InsertTextureLoad(ref DList, Surf.Material.Width, Surf.Material.Height, ThisTexture, TexPal, GBI.G_TX_RENDERTILE, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT, 0, 0);
+
+                if (Obj.Groups[Group].MultiTexMaterial != -1)
+                    InsertTextureLoad(ref DList, Obj.Materials[Obj.Groups[Group].MultiTexMaterial].Width, Obj.Materials[Obj.Groups[Group].MultiTexMaterial].Height,
+                        Textures[Obj.Groups[Group].MultiTexMaterial], TexPal, GBI.G_TX_RENDERTILE + 1, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT,
+                        Obj.Groups[Group].ShiftS, Obj.Groups[Group].ShiftT);
 
                 /* Generate commands for mode settings */
                 if ((TintAlpha >> 24) != 255)
@@ -436,8 +440,11 @@ namespace SharpOcarina
                 else
                 {
                     /* Solid surface */
-                    Helpers.Append64(ref DList, SetCombine(0x127E03, 0xFFFFFDF8));
-                    //Helpers.Append64(ref DList, SetCombine(0x267E04, 0x1FFCFDF8));    //multitex
+                    if (Obj.Groups[Group].MultiTexMaterial != -1)
+                        Helpers.Append64(ref DList, SetCombine(0x267E04, 0x1FFCFDF8));
+                    else
+                        Helpers.Append64(ref DList, SetCombine(0x127E03, 0xFFFFFDF8));
+
                     Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8113078));
                 }
 

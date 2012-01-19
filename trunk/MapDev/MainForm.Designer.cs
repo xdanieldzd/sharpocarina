@@ -113,6 +113,7 @@
             this.button13 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.numericUpDownEx10 = new SharpOcarina.NumericUpDownEx();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -144,6 +145,11 @@
             this.numericTextBox4 = new SharpOcarina.NumericTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -168,7 +174,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.forceRGBATexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -205,6 +211,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -321,7 +329,8 @@
             this.showCollisionModelToolStripMenuItem,
             this.showRoomModelsToolStripMenuItem,
             this.applyEnvironmentLightingToolStripMenuItem,
-            this.consecutiveRoomInjectionToolStripMenuItem});
+            this.consecutiveRoomInjectionToolStripMenuItem,
+            this.forceRGBATexturesToolStripMenuItem});
             this.optionsToolStripMenuItem.Enabled = false;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
@@ -1211,6 +1220,17 @@
             this.panel2.Size = new System.Drawing.Size(367, 178);
             this.panel2.TabIndex = 22;
             // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(241, 57);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(112, 17);
+            this.checkBox4.TabIndex = 87;
+            this.checkBox4.Text = "Is Hookshot-able?";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
             // numericUpDownEx10
             // 
             this.numericUpDownEx10.AlwaysFireValueChanged = false;
@@ -1597,7 +1617,7 @@
             // 
             this.numericTextBox4.AllowHex = true;
             this.numericTextBox4.Digits = 4;
-            this.numericTextBox4.Location = new System.Drawing.Point(104, 175);
+            this.numericTextBox4.Location = new System.Drawing.Point(104, 162);
             this.numericTextBox4.Name = "numericTextBox4";
             this.numericTextBox4.Size = new System.Drawing.Size(98, 20);
             this.numericTextBox4.TabIndex = 3;
@@ -1606,7 +1626,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 178);
+            this.label7.Location = new System.Drawing.Point(6, 165);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(81, 13);
             this.label7.TabIndex = 11;
@@ -1614,6 +1634,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label34);
+            this.groupBox1.Controls.Add(this.numericUpDown6);
+            this.groupBox1.Controls.Add(this.numericUpDown5);
+            this.groupBox1.Controls.Add(this.label30);
+            this.groupBox1.Controls.Add(this.comboBox3);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.numericUpDown4);
             this.groupBox1.Controls.Add(this.label12);
@@ -1625,12 +1650,76 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.numericUpDown2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(6, 341);
+            this.groupBox1.Location = new System.Drawing.Point(6, 315);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(376, 127);
+            this.groupBox1.Size = new System.Drawing.Size(376, 153);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Group Settings";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(6, 127);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(110, 13);
+            this.label34.TabIndex = 19;
+            this.label34.Text = "Multitexture Shift S/T:";
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(290, 125);
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(80, 20);
+            this.numericUpDown6.TabIndex = 18;
+            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Location = new System.Drawing.Point(184, 125);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(80, 20);
+            this.numericUpDown5.TabIndex = 17;
+            this.numericUpDown5.ValueChanged += new System.EventHandler(this.numericUpDown5_ValueChanged);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(6, 101);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(104, 13);
+            this.label30.TabIndex = 16;
+            this.label30.Text = "Multitexture Material:";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(184, 98);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(186, 21);
+            this.comboBox3.TabIndex = 15;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // checkBox3
             // 
@@ -1762,9 +1851,10 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(6, 201);
+            this.listBox2.IntegralHeight = false;
+            this.listBox2.Location = new System.Drawing.Point(6, 188);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(376, 134);
+            this.listBox2.Size = new System.Drawing.Size(376, 121);
             this.listBox2.TabIndex = 4;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             this.listBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
@@ -1792,9 +1882,10 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.IntegralHeight = false;
             this.listBox1.Location = new System.Drawing.Point(6, 35);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(376, 134);
+            this.listBox1.Size = new System.Drawing.Size(376, 121);
             this.listBox1.TabIndex = 2;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -1865,16 +1956,13 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // checkBox4
+            // forceRGBATexturesToolStripMenuItem
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(241, 57);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(112, 17);
-            this.checkBox4.TabIndex = 87;
-            this.checkBox4.Text = "Is Hookshot-able?";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.forceRGBATexturesToolStripMenuItem.CheckOnClick = true;
+            this.forceRGBATexturesToolStripMenuItem.Name = "forceRGBATexturesToolStripMenuItem";
+            this.forceRGBATexturesToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.forceRGBATexturesToolStripMenuItem.Text = "&Force RGBA Textures";
+            this.forceRGBATexturesToolStripMenuItem.Click += new System.EventHandler(this.forceRGBATexturesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1936,6 +2024,8 @@
             this.tabPage2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
@@ -2089,6 +2179,12 @@
         private NumericUpDownEx numericUpDownEx10;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.ToolStripMenuItem forceRGBATexturesToolStripMenuItem;
     }
 }
 
