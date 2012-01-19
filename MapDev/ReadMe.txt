@@ -1,6 +1,6 @@
 ﻿------------------------------------------------------
-SharpOcarina v0.5 - Zelda OoT Scene Development System
-              Written in 2011 by xdaniel              
+SharpOcarina v0.6 - Zelda OoT Scene Development System
+             Written 2011/2012 by xdaniel             
 ------------------------------------------------------
 
 --------------------
@@ -75,6 +75,9 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
                                  first. They will simply be injected right after the previous one.
                                  Although, just like the ROM injection function in general, this
                                  -does not- check if it overwrites any existing data.
+
+   - Force RGBA Textures: Forces all textures to be converted into 16-bit RGBA textures, as opposed
+                          to letting the texture converter decide on how to handle them.
 
   | Help |
    - Show Readme: You really want to create an infinite loop, don't you?
@@ -236,6 +239,25 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
 
    - Backface Culling: Determines if backface culling shall be enabled or disabled for this group.
 
+   - Multitexture Material: Select the secondary material used for multi-texturing. Select "(none)"
+                            to have the converter treat this group as a normal, single-textured
+							group.
+
+   - Multitexture Shift S/T: Basically determines how the secondary texture is scaled. Zero is the
+                             default value, while positive values visually enlarge the texture and
+							 negative values shrink it. The selectors' minimum and maximum values are
+							 locked to -10 and 10 respectively, although realistically, you should
+							 probably keep the values between -4 and 4.
+
+  A few more notes about multi-texturing: This feature is pretty experimental and (admittedly)
+  rather badly implemented, perhaps even more so than the rest of the program. In addition, the
+  combiner setup that is currently used for this - the same that ex. the grass in Hyrule Field and
+  other areas uses - depends on proper Environment Alpha being supplied by the game. This has only
+  been verified to be the case when overwriting scene numbers that already had multi-texturing (ex.
+  Kakariko Village, scene number 82). Other scenes, like SharpOcarina's default Sasatest, 108, do
+  not appear to supply the correct data for this. This can -probably- be changed by modifying the
+  scene table, but, at the time of this writing, this hadn't be tested yet.
+   
  f) Objects & Actors
  -------------------
   Finally, this is where you modify the objects and actors of the room currently selected on the
@@ -323,7 +345,7 @@ SharpOcarina v0.5 - Zelda OoT Scene Development System
 -------------------
 4) Credits & Thanks
 -------------------
- SharpOcarina was written by xdaniel in 2011, using some code by spinout adapted from C and/or
+ SharpOcarina was written by xdaniel 2011-2012, using some code by spinout adapted from C and/or
  Python to C#, but in reality is also the product of numerous people who were involved with
  modifying and documenting the Zelda games for the N64 (spinout, MNGoldenEagle, JSA et al.)
 

@@ -37,6 +37,7 @@ namespace SharpOcarina
         bool ShowRoomModels = true;
         bool ApplyEnvLighting = false;
         bool ConsecutiveRoomInject = true;
+        bool ForceRGBATextures = false;
 
         int ActorCubeGLID = 0, ActorPyramidGLID = 0, AxisMarkerGLID = 0;
 
@@ -295,7 +296,7 @@ namespace SharpOcarina
                                 Convert.ToBoolean(i == actorEditControl1.ActorNumber - 1));
                         }
                     }
-                    
+
                     if (ShowRoomModels == true)
                     {
                         /* Prepare... */
@@ -517,6 +518,24 @@ namespace SharpOcarina
                 GSet.BackfaceCulling = new bool[GroupCount];
                 GSet.BackfaceCulling.Fill(new bool[] { true });
             }
+
+            if (GSet.MultiTexMaterial.Length != GroupCount)
+            {
+                GSet.MultiTexMaterial = new int[GroupCount];
+                GSet.MultiTexMaterial.Fill(new int[] { -1 });
+            }
+
+            if (GSet.ShiftS.Length != GroupCount)
+            {
+                GSet.ShiftS = new int[GroupCount];
+                GSet.ShiftS.Fill(new int[] { GBI.G_TX_NOLOD });
+            }
+
+            if (GSet.ShiftT.Length != GroupCount)
+            {
+                GSet.ShiftT = new int[GroupCount];
+                GSet.ShiftT.Fill(new int[] { GBI.G_TX_NOLOD });
+            }
         }
 
         private bool ColorPicker(ref PictureBox PB)
@@ -571,6 +590,7 @@ namespace SharpOcarina
                     showRoomModelsToolStripMenuItem.Checked = ShowRoomModels;
                     applyEnvironmentLightingToolStripMenuItem.Checked = ApplyEnvLighting;
                     consecutiveRoomInjectionToolStripMenuItem.Checked = ConsecutiveRoomInject;
+                    forceRGBATexturesToolStripMenuItem.Checked = ForceRGBATextures;
 
                     optionsToolStripMenuItem.Enabled = true;
                     tabControl1.Enabled = true;
@@ -645,6 +665,32 @@ namespace SharpOcarina
         {
             if (listBox2.SelectedItem != null)
             {
+                /* ---- Multitex stuff START ---- */
+
+                /* Multitex material selector */
+                comboBox3.BeginUpdate();
+                comboBox3.Items.Clear();
+                comboBox3.DisplayMember = "DisplayName";
+                ObjFile.Material Dummy = new ObjFile.Material();
+                Dummy.Name = "(none)";
+                comboBox3.Items.Add(Dummy);
+                foreach (ObjFile.Material Mat in ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Materials)
+                    comboBox3.Items.Add(Mat);
+
+                comboBox3.SelectedIndexChanged -= comboBox3_SelectedIndexChanged;
+                if (((ObjFile.Group)listBox2.SelectedItem).MultiTexMaterial != -1)
+                    comboBox3.SelectedIndex = ((ObjFile.Group)listBox2.SelectedItem).MultiTexMaterial + 1;
+                else
+                    comboBox3.SelectedIndex = 0;
+                comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+                comboBox3.EndUpdate();
+
+                /* Multitex controls */
+                numericUpDown5.Value = ((ObjFile.Group)listBox2.SelectedItem).ShiftS;
+                numericUpDown6.Value = ((ObjFile.Group)listBox2.SelectedItem).ShiftT;
+
+                /* ---- Multitex stuff END ---- */
+
                 numericUpDown4.Minimum = 1;
                 numericUpDown4.Maximum = CurrentScene.PolyTypes.Count;
 
@@ -813,6 +859,11 @@ namespace SharpOcarina
             UpdateForm();
         }
 
+        private void forceRGBATexturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ForceRGBATextures = forceRGBATexturesToolStripMenuItem.Checked;
+        }
+
         private void injectToROMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.CheckFileExists = true;
@@ -822,7 +873,7 @@ namespace SharpOcarina
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                CurrentScene.ConvertInject(saveFileDialog1.FileName, ConsecutiveRoomInject);
+                CurrentScene.ConvertInject(saveFileDialog1.FileName, ConsecutiveRoomInject, ForceRGBATextures);
             }
         }
 
@@ -873,6 +924,9 @@ namespace SharpOcarina
                         CurrentScene.Rooms[i].ObjModel.Groups[j].TileT = CurrentScene.Rooms[i].GroupSettings.TileT[j];
                         CurrentScene.Rooms[i].ObjModel.Groups[j].PolyType = CurrentScene.Rooms[i].GroupSettings.PolyType[j];
                         CurrentScene.Rooms[i].ObjModel.Groups[j].BackfaceCulling = CurrentScene.Rooms[i].GroupSettings.BackfaceCulling[j];
+                        CurrentScene.Rooms[i].ObjModel.Groups[j].MultiTexMaterial = CurrentScene.Rooms[i].GroupSettings.MultiTexMaterial[j];
+                        CurrentScene.Rooms[i].ObjModel.Groups[j].ShiftS = CurrentScene.Rooms[i].GroupSettings.ShiftS[j];
+                        CurrentScene.Rooms[i].ObjModel.Groups[j].ShiftT = CurrentScene.Rooms[i].GroupSettings.ShiftT[j];
                     }
                     CurrentScene.Rooms[i].ObjModel.Prepare();
                 }
@@ -917,7 +971,7 @@ namespace SharpOcarina
             if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 folderBrowserDialog1.SelectedPath += System.IO.Path.DirectorySeparatorChar;
-                CurrentScene.ConvertSave(folderBrowserDialog1.SelectedPath, ConsecutiveRoomInject);
+                CurrentScene.ConvertSave(folderBrowserDialog1.SelectedPath, ConsecutiveRoomInject, ForceRGBATextures);
             }
         }
 
@@ -930,7 +984,7 @@ namespace SharpOcarina
         {
             MessageBox.Show(
                 Program.ApplicationTitle + " - Zelda OoT Scene Development System" + Environment.NewLine + Environment.NewLine +
-                "Written in 2011 by xdaniel, partially based on code by spinout; see the Readme for more",
+                "Written in 2011/2012 by xdaniel, partially based on code by spinout; see the Readme for more",
                 "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -1169,6 +1223,45 @@ namespace SharpOcarina
 
                 int Index = ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Groups.IndexOf(((ObjFile.Group)listBox2.SelectedItem));
                 ((ZScene.ZRoom)listBox1.SelectedItem).GroupSettings.BackfaceCulling[Index] = ((ObjFile.Group)listBox2.SelectedItem).BackfaceCulling;
+
+                UpdateGroupSelect();
+            }
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem != null)
+            {
+                ((ObjFile.Group)listBox2.SelectedItem).ShiftS = (int)numericUpDown5.Value;
+
+                int Index = ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Groups.IndexOf(((ObjFile.Group)listBox2.SelectedItem));
+                ((ZScene.ZRoom)listBox1.SelectedItem).GroupSettings.ShiftS[Index] = ((ObjFile.Group)listBox2.SelectedItem).ShiftS;
+
+                UpdateGroupSelect();
+            }
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem != null)
+            {
+                ((ObjFile.Group)listBox2.SelectedItem).ShiftT = (int)numericUpDown6.Value;
+
+                int Index = ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Groups.IndexOf(((ObjFile.Group)listBox2.SelectedItem));
+                ((ZScene.ZRoom)listBox1.SelectedItem).GroupSettings.ShiftT[Index] = ((ObjFile.Group)listBox2.SelectedItem).ShiftT;
+
+                UpdateGroupSelect();
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem != null)
+            {
+                ((ObjFile.Group)listBox2.SelectedItem).MultiTexMaterial = comboBox3.SelectedIndex - 1; ;
+
+                int Index = ((ZScene.ZRoom)listBox1.SelectedItem).ObjModel.Groups.IndexOf(((ObjFile.Group)listBox2.SelectedItem));
+                ((ZScene.ZRoom)listBox1.SelectedItem).GroupSettings.MultiTexMaterial[Index] = ((ObjFile.Group)listBox2.SelectedItem).MultiTexMaterial;
 
                 UpdateGroupSelect();
             }

@@ -128,6 +128,9 @@ namespace SharpOcarina
             [XmlIgnore]
             public int GLID;
 
+            [XmlIgnore]
+            public bool ForceRGBA;
+
             public Material()
             {
                 Ka = new float[] { 0.2f, 0.2f, 0.2f };
@@ -135,6 +138,8 @@ namespace SharpOcarina
                 Ks = new float[] { 1.0f, 1.0f, 1.0f };
                 Tr = 1.0f;
                 illum = 0;
+
+                ForceRGBA = false;
             }
 
             public string DisplayName
@@ -156,6 +161,8 @@ namespace SharpOcarina
             public int TileS = 0, TileT = 0, PolyType = 0;
             [XmlIgnore]
             public bool BackfaceCulling = true;
+            [XmlIgnore]
+            public int MultiTexMaterial = -1, ShiftS = 0, ShiftT = 0;
             
             private List<Triangle> _Tris = new List<Triangle>();
 

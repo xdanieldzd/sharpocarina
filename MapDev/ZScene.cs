@@ -42,6 +42,9 @@ namespace SharpOcarina
                 public int[] TileT = new int[1];
                 public int[] PolyType = new int[1];
                 public bool[] BackfaceCulling = new bool[1];
+                public int[] MultiTexMaterial = new int[1];
+                public int[] ShiftS = new int[1];
+                public int[] ShiftT = new int[1];
             }
 
             public ZGroupSettings GroupSettings = new ZGroupSettings();
@@ -176,6 +179,9 @@ namespace SharpOcarina
             NewRoom.GroupSettings.TileT = new int[NewRoom.ObjModel.Groups.Count];
             NewRoom.GroupSettings.PolyType = new int[NewRoom.ObjModel.Groups.Count];
             NewRoom.GroupSettings.BackfaceCulling = new bool[NewRoom.ObjModel.Groups.Count];
+            NewRoom.GroupSettings.MultiTexMaterial = new int[NewRoom.ObjModel.Groups.Count];
+            NewRoom.GroupSettings.ShiftS = new int[NewRoom.ObjModel.Groups.Count];
+            NewRoom.GroupSettings.ShiftT = new int[NewRoom.ObjModel.Groups.Count];
             for (int i = 0; i < NewRoom.ObjModel.Groups.Count; i++)
             {
                 NewRoom.GroupSettings.TintAlpha[i] = 0xFFFFFFFF;
@@ -183,6 +189,9 @@ namespace SharpOcarina
                 NewRoom.GroupSettings.TileT[i] = GBI.G_TX_WRAP;
                 NewRoom.GroupSettings.PolyType[i] = 0x0000000000000000;
                 NewRoom.GroupSettings.BackfaceCulling[i] = true;
+                NewRoom.GroupSettings.MultiTexMaterial[i] = -1;
+                NewRoom.GroupSettings.ShiftS[i] = GBI.G_TX_NOLOD;
+                NewRoom.GroupSettings.ShiftT[i] = GBI.G_TX_NOLOD;
             }
 
             _Rooms.Add(NewRoom);
@@ -192,9 +201,9 @@ namespace SharpOcarina
 
         #region Saving/Injection...
 
-        public void ConvertInject(string Filename, bool ConsecutiveRoomInject)
+        public void ConvertInject(string Filename, bool ConsecutiveRoomInject, bool ForceRGBATextures)
         {
-            ConvertScene(ConsecutiveRoomInject);
+            ConvertScene(ConsecutiveRoomInject, ForceRGBATextures);
 
             // Crude inject method he~re
             if (ConsecutiveRoomInject == true)
@@ -236,9 +245,9 @@ namespace SharpOcarina
             BWS.Close();
         }
 
-        public void ConvertSave(string Filepath, bool ConsecutiveRoomInject)
+        public void ConvertSave(string Filepath, bool ConsecutiveRoomInject, bool ForceRGBATextures)
         {
-            ConvertScene(ConsecutiveRoomInject);
+            ConvertScene(ConsecutiveRoomInject, ForceRGBATextures);
 
             for (int i = 0; i < _Rooms.Count; i++)
             {
@@ -264,7 +273,7 @@ namespace SharpOcarina
 
         #region ... Conversion
 
-        public void ConvertScene(bool ConsecutiveRoomInject)
+        public void ConvertScene(bool ConsecutiveRoomInject, bool ForceRGBATextures)
         {
             /* Check if collision model is valid */
             if (ColModel == null) throw new Exception("No collision model defined");
@@ -324,8 +333,36 @@ namespace SharpOcarina
                 AddPadding(ref Room.RoomData, 8);
 
                 /* Create textures */
-                foreach (ObjFile.Material Mat in Room.ObjModel.Materials)
+                for (int M = 0; M < Room.ObjModel.Materials.Count; M++)
                 {
+                    /* Get material & force RGBA default */
+                    ObjFile.Material Mat = Room.ObjModel.Materials[M];
+                    Mat.ForceRGBA = ForceRGBATextures;
+
+                    /* ---VERY kludgy RGBA forcing code--- */
+                    for (int x = 0; x < Room.ObjModel.Groups.Count; x++)
+                    {
+                        /* If group has multitex material number... */
+                        if (Room.ObjModel.Groups[x].MultiTexMaterial != -1)
+                        {
+                            /* Turn force RGBA ON for multitex material */
+                            Room.ObjModel.Materials[Room.ObjModel.Groups[x].MultiTexMaterial].ForceRGBA = true;
+
+                            /* Scan group's triangles for current material name... */
+                            for (int y = 0; y < Room.ObjModel.Groups[x].Triangles.Count; y++)
+                            {
+                                if (Room.ObjModel.Groups[x].Triangles[y].MaterialName == Mat.Name)
+                                {
+                                    /* Turn force RGBA ON for current material */
+                                    Mat.ForceRGBA = true;
+                                    goto Cont;
+                                }
+                            }
+                        }
+                    }
+
+                    /* Continue here... */
+                Cont:
                     if (Mat.TexImage == null) continue;
 
                     /* Create new texture, convert current material */
