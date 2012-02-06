@@ -38,6 +38,7 @@ namespace SharpOcarina
         bool ApplyEnvLighting = false;
         bool ConsecutiveRoomInject = true;
         bool ForceRGBATextures = false;
+        bool SimulateN64Gfx = false;
 
         int ActorCubeGLID = 0, ActorPyramidGLID = 0, AxisMarkerGLID = 0;
 
@@ -59,6 +60,9 @@ namespace SharpOcarina
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             textBox2.ContextMenu = new ContextMenu();
+
+            checkBox5.LostFocus += new EventHandler(checkBox5_LostFocus);
+            glControl1.LostFocus += new EventHandler(glControl1_LostFocus);
         }
 
         #endregion
@@ -220,6 +224,11 @@ namespace SharpOcarina
 
             GL.Color4(FillColor);
 
+            GL.PushAttrib(AttribMask.AllAttribBits);
+            GL.Disable(EnableCap.Texture2D);
+            GL.Disable((EnableCap)All.FragmentProgram);
+            GL.Disable(EnableCap.Lighting);
+
             for (int j = 0; j < 2; j++)
             {
                 // If we're doing the outline, set some stuff prior to rendering
@@ -242,6 +251,7 @@ namespace SharpOcarina
                 GL.CallList(AxisMarkerGLID);
 
             GL.PopMatrix();
+            GL.PopAttrib();
         }
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
@@ -253,6 +263,11 @@ namespace SharpOcarina
 
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
+
+            GL.Light(LightName.Light0, LightParameter.Ambient, new float[] { 0.5f, 0.5f, 0.5f, 0.5f });
+            GL.Light(LightName.Light0, LightParameter.Diffuse, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
+            GL.Light(LightName.Light0, LightParameter.Specular, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
+            GL.Light(LightName.Light0, LightParameter.Position, new float[] { 0.0f, 0.0f, 0.0f, 1.0f });
 
             Camera.Position();
 
@@ -299,43 +314,46 @@ namespace SharpOcarina
 
                     if (ShowRoomModels == true)
                     {
-                        /* Prepare... */
-                        GL.PushMatrix();
-                        GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
+                        GL.PushAttrib(AttribMask.AllAttribBits);
 
-                        //GL.Enable(EnableCap.PolygonOffsetFill);
-                        //GL.PolygonOffset(2.0f, 2.0f);
-
-                        GL.Enable(EnableCap.CullFace);
-                        GL.CullFace(CullFaceMode.Back);
-
-                        /* Faked environmental lighting... */
-                        if (ApplyEnvLighting == true)
+                        if (SimulateN64Gfx == false)
                         {
-                            GL.Enable(EnableCap.ColorMaterial);
-                            GL.ColorMaterial(MaterialFace.FrontAndBack, ColorMaterialParameter.Diffuse);
-                            GL.Enable(EnableCap.Normalize);
-                            GL.Enable(EnableCap.Lighting);
+                            /* Prepare... */
+                            GL.PushMatrix();
+                            GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
+
+                            GL.Enable(EnableCap.CullFace);
+                            GL.CullFace(CullFaceMode.Back);
+
+                            /* Faked environmental lighting... */
+                            if (ApplyEnvLighting == true)
+                            {
+                                GL.Enable(EnableCap.ColorMaterial);
+                                GL.ColorMaterial(MaterialFace.FrontAndBack, ColorMaterialParameter.Diffuse);
+                                GL.Enable(EnableCap.Normalize);
+                                GL.Enable(EnableCap.Lighting);
+                                GL.Enable(EnableCap.Light0);
+                            }
+
+                            /* Render groups... */
+                            for (int i = 0; i < Room.ObjModel.Groups.Count; i++)
+                            {
+                                GL.Enable(EnableCap.Texture2D);
+                                GL.Color4(Color.FromArgb((int)Room.ObjModel.Groups[i].TintAlpha));
+                                Room.ObjModel.Render(i);
+                            }
+
+                            GL.PopMatrix();
+                        }
+                        else if (Room.N64DLists != null)
+                        {
                             GL.Enable(EnableCap.Light0);
+                            foreach (SayakaGL.UcodeSimulator.DisplayListStruct DL in Room.N64DLists)
+                            {
+                                GL.CallList(DL.GLID);
+                            }
                         }
-
-                        /* Render groups... */
-                        for (int i = 0; i < Room.ObjModel.Groups.Count; i++)
-                        {
-                            GL.Enable(EnableCap.Texture2D);
-                            GL.Color4(Color.FromArgb((int)Room.ObjModel.Groups[i].TintAlpha));
-                            Room.ObjModel.Render(i);
-                        }
-
-                        /* Faked environmental lighting... */
-                        if (ApplyEnvLighting == true)
-                        {
-                            GL.Disable(EnableCap.ColorMaterial);
-                            GL.Disable(EnableCap.Normalize);
-                            GL.Disable(EnableCap.Lighting);
-                        }
-
-                        GL.PopMatrix();
+                        GL.PopAttrib();
                     }
                 }
 
@@ -400,9 +418,12 @@ namespace SharpOcarina
                 if (((ObjFile.Group)listBox2.SelectedItem) != null)
                 {
                     GL.PushMatrix();
+                    GL.PushAttrib(AttribMask.AllAttribBits);
                     GL.Scale(CurrentScene.Scale, CurrentScene.Scale, CurrentScene.Scale);
 
+                    GL.Disable((EnableCap)All.FragmentProgram);
                     GL.Disable(EnableCap.Texture2D);
+                    GL.Enable(EnableCap.Blend);
                     GL.Enable(EnableCap.PolygonOffsetFill);
                     GL.PolygonOffset(-5.0f, -5.0f);
 
@@ -412,9 +433,9 @@ namespace SharpOcarina
 
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                     GL.PolygonOffset(0.0f, 0.0f);
-                    GL.Enable(EnableCap.Texture2D);
-
+                    
                     GL.PopMatrix();
+                    GL.PopAttrib();
                 }
             }
 
@@ -591,6 +612,7 @@ namespace SharpOcarina
                     applyEnvironmentLightingToolStripMenuItem.Checked = ApplyEnvLighting;
                     consecutiveRoomInjectionToolStripMenuItem.Checked = ConsecutiveRoomInject;
                     forceRGBATexturesToolStripMenuItem.Checked = ForceRGBATextures;
+                    checkBox5.Checked = SimulateN64Gfx;
 
                     optionsToolStripMenuItem.Enabled = true;
                     tabControl1.Enabled = true;
@@ -774,6 +796,34 @@ namespace SharpOcarina
             ListEditBox.Text = itemText;
             ListEditBox.Focus();
             ListEditBox.SelectAll();
+        }
+
+        private void checkBox5_Click(object sender, EventArgs e)
+        {
+            SimulateN64Gfx = checkBox5.Checked;
+
+            if (SimulateN64Gfx == true)
+                CurrentScene.ConvertPreview(ConsecutiveRoomInject, ForceRGBATextures);
+        }
+
+        private void checkBox5_LostFocus(object sender, EventArgs e)
+        {
+            if (glControl1.Focused == false)
+                SimulateN64Gfx = checkBox5.Checked = false;
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked == true)
+                checkBox5.BackColor = Color.LightGreen;
+            else
+                checkBox5.BackColor = SystemColors.Control;
+        }
+
+        private void glControl1_LostFocus(object sender, EventArgs e)
+        {
+            if (checkBox5.Focused == false)
+                SimulateN64Gfx = checkBox5.Checked = false;
         }
 
         #endregion

@@ -60,12 +60,15 @@
     <Compile Include="NiceLine.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="SayakaGL\GameHandler.cs" />
+    <Compile Include="SayakaGL\NImage.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NumericUpDownEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SayakaGL\UcodeSimulator.cs" />
     <Compile Include="ZActor.cs" />
     <Compile Include="NDisplayList.cs" />
     <Compile Include="IO.cs" />
