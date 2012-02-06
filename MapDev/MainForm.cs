@@ -267,7 +267,7 @@ namespace SharpOcarina
             GL.Light(LightName.Light0, LightParameter.Ambient, new float[] { 0.5f, 0.5f, 0.5f, 0.5f });
             GL.Light(LightName.Light0, LightParameter.Diffuse, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
             GL.Light(LightName.Light0, LightParameter.Specular, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
-            GL.Light(LightName.Light0, LightParameter.Position, new float[] { 0.0f, 0.0f, 0.0f, 1.0f });
+            GL.Light(LightName.Light0, LightParameter.Position, new float[] { 0.0f, 25.0f, 0.0f, 0.0f });
 
             Camera.Position();
 
@@ -433,7 +433,7 @@ namespace SharpOcarina
 
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                     GL.PolygonOffset(0.0f, 0.0f);
-                    
+
                     GL.PopMatrix();
                     GL.PopAttrib();
                 }
