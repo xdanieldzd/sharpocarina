@@ -5,6 +5,8 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 
+using OpenTK.Graphics.OpenGL;
+
 namespace SharpOcarina
 {
     public class ZScene
@@ -51,6 +53,11 @@ namespace SharpOcarina
 
             [XmlIgnore]
             public List<byte> RoomData;
+
+            [XmlIgnore]
+            public List<SayakaGL.UcodeSimulator.DisplayListStruct> N64DLists;
+            [XmlIgnore]
+            public int MeshHeaderOffset = 0;
 
             public ZRoom() { }
         }
@@ -271,6 +278,46 @@ namespace SharpOcarina
 
         #endregion
 
+        #region ... Preview
+
+        public void ConvertPreview(bool ConsecutiveRoomInject, bool ForceRGBATextures)
+        {
+            // Alright, convert the scene
+            ConvertScene(ConsecutiveRoomInject, ForceRGBATextures);
+
+            GL.PushAttrib(AttribMask.AllAttribBits);
+
+            // Get the GameHandler stub and UcodeSimulator all ready
+            SayakaGL.GameHandler.Initialize();
+            SayakaGL.UcodeSimulator.Initialize(SayakaGL.Ucodes.F3DEX2);
+
+            // Load the converted scene data into dummy memory
+            SayakaGL.GameHandler.LoadToRAM(SceneData.ToArray(), 0x02);
+
+            // Go through the rooms...
+            for (int i = 0; i < _Rooms.Count; i++)
+            {
+                // Make a DList list for the UcodeSimulator for each
+                _Rooms[i].N64DLists = new List<SayakaGL.UcodeSimulator.DisplayListStruct>();
+
+                // Load the room data into dummy memory
+                SayakaGL.GameHandler.LoadToRAM(_Rooms[i].RoomData.ToArray(), 0x03);
+
+                // Get the Display Lists offsets back from the mesh header and read each DList
+                List<uint> DLOffsets = SayakaGL.GameHandler.GetDisplayLists((uint)(_Rooms[i].MeshHeaderOffset | (0x03 << 24)));
+                foreach (UInt32 DL in DLOffsets)
+                {
+                    SayakaGL.UcodeSimulator.ReadDL(0, DL, ref _Rooms[i].N64DLists);
+                }
+                // Finally parse all the DLists
+                SayakaGL.UcodeSimulator.ParseAllDLs(ref _Rooms[i].N64DLists);
+            }
+
+            GL.PopAttrib();
+        }
+
+        #endregion
+
         #region ... Conversion
 
         public void ConvertScene(bool ConsecutiveRoomInject, bool ForceRGBATextures)
@@ -320,7 +367,7 @@ namespace SharpOcarina
                 }
 
                 /* Prepare dummy mesh header */
-                MeshHeaderOffset = Room.RoomData.Count;
+                MeshHeaderOffset = Room.MeshHeaderOffset = Room.RoomData.Count;
                 Helpers.Append32(ref Room.RoomData, 0);  /* Mesh type X, Y meshes */
                 Helpers.Append32(ref Room.RoomData, 0);  /* Start address */
                 Helpers.Append32(ref Room.RoomData, 0);  /* End address */

@@ -305,6 +305,21 @@ namespace SharpOcarina
 
         public void InsertTextureLoad(ref List<byte> DList, int Width, int Height, NTexture ThisTexture, int TexPal, int RenderTile, int CMS, int CMT, int MultiShiftS, int MultiShiftT)
         {
+            /* If texture is in CI format, add correct SetTextureLUT and LoadTLUT macro */
+            if (ThisTexture.Format == GBI.G_IM_FMT_CI)
+            {
+                Helpers.Append64(ref DList, SetTextureLUT(GBI.G_TT_RGBA16));
+
+                if (ThisTexture.Size == GBI.G_IM_SIZ_4b)
+                    LoadTLUT16(ref DList, TexPal, 0x03000000 | ThisTexture.PalOffset);
+                else if (ThisTexture.Size == GBI.G_IM_SIZ_8b)
+                    LoadTLUT256(ref DList, 0x03000000 | ThisTexture.PalOffset);
+            }
+            else
+            {
+                Helpers.Append64(ref DList, SetTextureLUT(GBI.G_TT_NONE));
+            }
+
             /* Select appropriate load block macro to use (LoadTextureBlock or LoadMultiBlock) */
             if (RenderTile == GBI.G_TX_RENDERTILE)
             {
@@ -344,21 +359,6 @@ namespace SharpOcarina
                         (uint)Helpers.Log2(Width), (uint)Helpers.Log2(Height),
                         (uint)MultiShiftS, (uint)MultiShiftT);          // multitex scale HERE!!!
                 }
-            }
-
-            /* If texture is in CI format, add correct SetTextureLUT and LoadTLUT macro */
-            if (ThisTexture.Format == GBI.G_IM_FMT_CI)
-            {
-                Helpers.Append64(ref DList, SetTextureLUT(GBI.G_TT_RGBA16));
-
-                if (ThisTexture.Size == GBI.G_IM_SIZ_4b)
-                    LoadTLUT16(ref DList, TexPal, 0x03000000 | ThisTexture.PalOffset);
-                else if (ThisTexture.Size == GBI.G_IM_SIZ_8b)
-                    LoadTLUT256(ref DList, 0x03000000 | ThisTexture.PalOffset);
-            }
-            else
-            {
-                Helpers.Append64(ref DList, SetTextureLUT(GBI.G_TT_NONE));
             }
         }
 
@@ -424,8 +424,41 @@ namespace SharpOcarina
                         Textures[Obj.Groups[Group].MultiTexMaterial], TexPal, GBI.G_TX_RENDERTILE + 1, Obj.Groups[Group].TileS, Obj.Groups[Group].TileT,
                         Obj.Groups[Group].ShiftS, Obj.Groups[Group].ShiftT);
 
-                /* Generate commands for mode settings */
-                if ((TintAlpha >> 24) != 255)
+                /* Is surface translucent? (needed later) */
+                bool IsTranslucent = ((TintAlpha >> 24) != 255);
+
+                /* Generate GeometryMode commands */
+                //Helpers.Append64(ref DList, ClearGeometryMode(GBI.G_TEXTURE_GEN | GBI.G_TEXTURE_GEN_LINEAR | (Culling == false ? GBI.G_CULL_BACK : 0)));
+                //Helpers.Append64(ref DList, SetGeometryMode(GBI.G_FOG | GBI.G_LIGHTING | (IsOutdoors == true ? 0 : GBI.G_SHADING_SMOOTH)));
+                if (IsOutdoors == true)
+                {
+                    if (IsTranslucent == true)
+                    {
+                        Helpers.Append64(ref DList, 0xD9F3FBFF00000000);
+                        Helpers.Append64(ref DList, 0xD9FFFFFF00030000);
+                    }
+                    else
+                    {
+                        Helpers.Append64(ref DList, 0xD9F3FFFF00000000);
+                        Helpers.Append64(ref DList, 0xD9FFFFFF00030400);
+                    }
+                }
+                else
+                {
+                    if (IsTranslucent == true)
+                    {
+                        Helpers.Append64(ref DList, 0xD9F1FBFF00000000);
+                        Helpers.Append64(ref DList, 0xD9FFFFFF00010000);
+                    }
+                    else
+                    {
+                        Helpers.Append64(ref DList, 0xD9F1FFFF00000000);
+                        Helpers.Append64(ref DList, 0xD9FFFFFF00010400);
+                    }
+                }
+
+                /* Generate SetCombine/RenderMode commands */
+                if (IsTranslucent == true)
                 {
                     /* Translucent surface */
                     Helpers.Append64(ref DList, SetCombine(0x167E03, 0xFF0FFDFF));
@@ -448,30 +481,7 @@ namespace SharpOcarina
                     Helpers.Append64(ref DList, SetRenderMode(0x1C, 0xC8113078));
                 }
 
-                Helpers.Append64(ref DList, ClearGeometryMode(GBI.G_TEXTURE_GEN | GBI.G_TEXTURE_GEN_LINEAR | (Culling == false ? GBI.G_CULL_BACK : 0)));
-                Helpers.Append64(ref DList, SetGeometryMode(GBI.G_FOG | GBI.G_LIGHTING | (IsOutdoors == true ? 0 : GBI.G_SHADING_SMOOTH)));
-
-                // geomode needs more research and shit <.<
-                // dunno
-                /*
-                Helpers.Append64(ref DList, ClearGeometryMode(GBI.G_TEXTURE_GEN | GBI.G_TEXTURE_GEN_LINEAR |
-                    (IsOutdoors == true ? GBI.G_LIGHTING : 0)));
-                Helpers.Append64(ref DList, SetGeometryMode(GBI.G_FOG | GBI.G_SHADING_SMOOTH | (Culling == false ? GBI.G_CULL_BACK : 0)));
-                */
-
-                // dunno either
-                /*
-                if (IsOutdoors == true)
-                {
-                    Helpers.Append64(ref DList, 0xD9F3FFFF00000000);
-                    Helpers.Append64(ref DList, 0xD9FFFFFF00030400);
-                }
-                else
-                {
-                    Helpers.Append64(ref DList, 0xD9F1FFFF00000000);
-                    Helpers.Append64(ref DList, 0xD9FFFFFF00010400);
-                }*/
-
+                /* Insert SetPrimColor command */
                 Helpers.Append64(ref DList, SetPrimColor(TintAlpha));
 
                 /* Parse triangles, generate VTX and TRI commands */
