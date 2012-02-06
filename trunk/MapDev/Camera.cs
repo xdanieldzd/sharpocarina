@@ -26,7 +26,7 @@ namespace SharpOcarina
         #region Variables
 
         public static float Speed = 0.01f;
-        public static float CameraCoeff = 0.025f;
+        public static float CameraCoeff = 0.05f;
         public static Vector3d Pos, Rot;
         public static Vector2d MouseCoord;
 
@@ -98,17 +98,21 @@ namespace SharpOcarina
             double RotYRad = (Rot.Y / 180.0f * Math.PI);
             double RotXRad = (Rot.X / 180.0f * Math.PI);
 
+            double Modifier = 1.0f;
+            if (KeysDown[(char)Keys.Space]) Modifier = 10.0f;
+            else if (KeysDown[(char)Keys.ShiftKey]) Modifier = 0.25f;
+
             if (KeysDown[(char)Keys.W])
             {
                 if (Rot.X >= 90.0f || Rot.X <= -90.0f)
                 {
-                    Pos.Y += Math.Sin(RotXRad) * CameraCoeff * 2.0f;
+                    Pos.Y += (float)Math.Sin(RotXRad) * CameraCoeff * 2.0f * Modifier;
                 }
                 else
                 {
-                    Pos.X -= Math.Sin(RotYRad) * CameraCoeff * 2.0f;
-                    Pos.Z += Math.Cos(RotYRad) * CameraCoeff * 2.0f;
-                    Pos.Y += Math.Sin(RotXRad) * CameraCoeff * 2.0f;
+                    Pos.X -= (float)Math.Sin(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                    Pos.Z += (float)Math.Cos(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                    Pos.Y += (float)Math.Sin(RotXRad) * CameraCoeff * 2.0f * Modifier;
                 }
             }
 
@@ -116,26 +120,26 @@ namespace SharpOcarina
             {
                 if (Rot.X >= 90.0f || Rot.X <= -90.0f)
                 {
-                    Pos.Y -= Math.Sin(RotXRad) * CameraCoeff * 2.0f;
+                    Pos.Y -= (float)Math.Sin(RotXRad) * CameraCoeff * 2.0f * Modifier;
                 }
                 else
                 {
-                    Pos.X += Math.Sin(RotYRad) * CameraCoeff * 2.0f;
-                    Pos.Z -= Math.Cos(RotYRad) * CameraCoeff * 2.0f;
-                    Pos.Y -= Math.Sin(RotXRad) * CameraCoeff * 2.0f;
+                    Pos.X += (float)Math.Sin(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                    Pos.Z -= (float)Math.Cos(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                    Pos.Y -= (float)Math.Sin(RotXRad) * CameraCoeff * 2.0f * Modifier;
                 }
             }
 
             if (KeysDown[(char)Keys.A])
             {
-                Pos.X += Math.Cos(RotYRad) * CameraCoeff * 2.0f;
-                Pos.Z += Math.Sin(RotYRad) * CameraCoeff * 2.0f;
+                Pos.X += (float)Math.Cos(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                Pos.Z += (float)Math.Sin(RotYRad) * CameraCoeff * 2.0f * Modifier;
             }
 
             if (KeysDown[(char)Keys.D])
             {
-                Pos.X -= Math.Cos(RotYRad) * CameraCoeff * 2.0f;
-                Pos.Z -= Math.Sin(RotYRad) * CameraCoeff * 2.0f;
+                Pos.X -= (float)Math.Cos(RotYRad) * CameraCoeff * 2.0f * Modifier;
+                Pos.Z -= (float)Math.Sin(RotYRad) * CameraCoeff * 2.0f * Modifier;
             }
         }
 

@@ -56,7 +56,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.numericTextBox8 = new SharpOcarina.NumericTextBox();
             this.label32 = new System.Windows.Forms.Label();
+            this.numericTextBox7 = new SharpOcarina.NumericTextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -73,17 +75,26 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.niceLine3 = new SharpOcarina.NiceLine();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label22 = new System.Windows.Forms.Label();
+            this.numericUpDownEx6 = new SharpOcarina.NumericUpDownEx();
+            this.numericTextBox6 = new SharpOcarina.NumericTextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.numericUpDownEx5 = new SharpOcarina.NumericUpDownEx();
             this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDownEx4 = new SharpOcarina.NumericUpDownEx();
+            this.numericUpDownEx1 = new SharpOcarina.NumericUpDownEx();
             this.label23 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.numericUpDownEx2 = new SharpOcarina.NumericUpDownEx();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.niceLine2 = new SharpOcarina.NiceLine();
+            this.numericTextBox3 = new SharpOcarina.NumericTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -95,6 +106,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.actorEditControl3 = new SharpOcarina.ActorEditControl();
+            this.actorEditControl2 = new SharpOcarina.ActorEditControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.listBox4 = new System.Windows.Forms.ListBox();
@@ -103,6 +116,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownEx10 = new SharpOcarina.NumericUpDownEx();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
@@ -114,15 +128,23 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownEx8 = new SharpOcarina.NumericUpDownEx();
             this.label15 = new System.Windows.Forms.Label();
+            this.numericUpDownEx9 = new SharpOcarina.NumericUpDownEx();
             this.label16 = new System.Windows.Forms.Label();
+            this.numericUpDownEx7 = new SharpOcarina.NumericUpDownEx();
             this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDownEx3 = new SharpOcarina.NumericUpDownEx();
             this.label13 = new System.Windows.Forms.Label();
+            this.niceLine4 = new SharpOcarina.NiceLine();
+            this.numericTextBox1 = new SharpOcarina.NumericTextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.niceLine1 = new SharpOcarina.NiceLine();
             this.button1 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericTextBox4 = new SharpOcarina.NumericTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -146,6 +168,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.actorEditControl1 = new SharpOcarina.ActorEditControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.button8 = new System.Windows.Forms.Button();
@@ -153,29 +176,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.numericTextBox8 = new SharpOcarina.NumericTextBox();
-            this.numericTextBox7 = new SharpOcarina.NumericTextBox();
-            this.niceLine3 = new SharpOcarina.NiceLine();
-            this.numericUpDownEx6 = new SharpOcarina.NumericUpDownEx();
-            this.numericTextBox6 = new SharpOcarina.NumericTextBox();
-            this.numericUpDownEx5 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx4 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx1 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx2 = new SharpOcarina.NumericUpDownEx();
-            this.niceLine2 = new SharpOcarina.NiceLine();
-            this.numericTextBox3 = new SharpOcarina.NumericTextBox();
-            this.actorEditControl3 = new SharpOcarina.ActorEditControl();
-            this.actorEditControl2 = new SharpOcarina.ActorEditControl();
-            this.numericUpDownEx10 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx8 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx9 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx7 = new SharpOcarina.NumericUpDownEx();
-            this.numericUpDownEx3 = new SharpOcarina.NumericUpDownEx();
-            this.niceLine4 = new SharpOcarina.NiceLine();
-            this.numericTextBox1 = new SharpOcarina.NumericTextBox();
-            this.niceLine1 = new SharpOcarina.NiceLine();
-            this.numericTextBox4 = new SharpOcarina.NumericTextBox();
-            this.actorEditControl1 = new SharpOcarina.ActorEditControl();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -190,6 +190,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabPage4.SuspendLayout();
@@ -197,8 +202,13 @@
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx10)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -209,16 +219,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx3)).BeginInit();
             this.SuspendLayout();
             // 
             // glControl1
@@ -232,7 +232,7 @@
             this.glControl1.Name = "glControl1";
             this.glControl1.Size = new System.Drawing.Size(660, 576);
             this.glControl1.TabIndex = 0;
-            this.glControl1.VSync = false;
+            this.glControl1.VSync = true;
             this.glControl1.Load += new System.EventHandler(this.glControl1_Load);
             this.glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
             this.glControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.glControl1_KeyDown);
@@ -523,6 +523,17 @@
             this.panel3.Size = new System.Drawing.Size(370, 132);
             this.panel3.TabIndex = 21;
             // 
+            // numericTextBox8
+            // 
+            this.numericTextBox8.AllowHex = true;
+            this.numericTextBox8.Digits = 4;
+            this.numericTextBox8.Enabled = false;
+            this.numericTextBox8.Location = new System.Drawing.Point(287, 100);
+            this.numericTextBox8.Name = "numericTextBox8";
+            this.numericTextBox8.Size = new System.Drawing.Size(80, 22);
+            this.numericTextBox8.TabIndex = 20;
+            this.numericTextBox8.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox8_KeyDown);
+            // 
             // label32
             // 
             this.label32.AutoSize = true;
@@ -532,6 +543,17 @@
             this.label32.Size = new System.Drawing.Size(84, 15);
             this.label32.TabIndex = 15;
             this.label32.Text = "Draw Distance:";
+            // 
+            // numericTextBox7
+            // 
+            this.numericTextBox7.AllowHex = true;
+            this.numericTextBox7.Digits = 4;
+            this.numericTextBox7.Enabled = false;
+            this.numericTextBox7.Location = new System.Drawing.Point(287, 70);
+            this.numericTextBox7.Name = "numericTextBox7";
+            this.numericTextBox7.Size = new System.Drawing.Size(80, 22);
+            this.numericTextBox7.TabIndex = 19;
+            this.numericTextBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox7_KeyDown);
             // 
             // label31
             // 
@@ -685,6 +707,14 @@
             this.numericUpDown11.TabIndex = 16;
             this.numericUpDown11.ValueChanged += new System.EventHandler(this.numericUpDown11_ValueChanged);
             // 
+            // niceLine3
+            // 
+            this.niceLine3.Location = new System.Drawing.Point(9, 53);
+            this.niceLine3.Name = "niceLine3";
+            this.niceLine3.Size = new System.Drawing.Size(361, 17);
+            this.niceLine3.TabIndex = 20;
+            this.niceLine3.TabStop = false;
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.panel1);
@@ -729,6 +759,46 @@
             this.label22.TabIndex = 7;
             this.label22.Text = "X Position:";
             // 
+            // numericUpDownEx6
+            // 
+            this.numericUpDownEx6.AlwaysFireValueChanged = false;
+            this.numericUpDownEx6.DecimalPlaces = 3;
+            this.numericUpDownEx6.DisplayDigits = 1;
+            this.numericUpDownEx6.DoValueRollover = false;
+            this.numericUpDownEx6.Enabled = false;
+            this.numericUpDownEx6.IncrementMouseWheel = 1;
+            this.numericUpDownEx6.Location = new System.Drawing.Point(74, 66);
+            this.numericUpDownEx6.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownEx6.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx6.Name = "numericUpDownEx6";
+            this.numericUpDownEx6.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDownEx6.TabIndex = 12;
+            this.numericUpDownEx6.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx6.ValueChanged += new System.EventHandler(this.numericUpDownEx6_ValueChanged);
+            // 
+            // numericTextBox6
+            // 
+            this.numericTextBox6.AllowHex = true;
+            this.numericTextBox6.Digits = 8;
+            this.numericTextBox6.Enabled = false;
+            this.numericTextBox6.Location = new System.Drawing.Point(267, 65);
+            this.numericTextBox6.Name = "numericTextBox6";
+            this.numericTextBox6.Size = new System.Drawing.Size(100, 22);
+            this.numericTextBox6.TabIndex = 15;
+            this.numericTextBox6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox6_KeyDown);
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -749,6 +819,35 @@
             this.label24.TabIndex = 9;
             this.label24.Text = "Y Position:";
             // 
+            // numericUpDownEx5
+            // 
+            this.numericUpDownEx5.AlwaysFireValueChanged = false;
+            this.numericUpDownEx5.DecimalPlaces = 3;
+            this.numericUpDownEx5.DisplayDigits = 1;
+            this.numericUpDownEx5.DoValueRollover = false;
+            this.numericUpDownEx5.Enabled = false;
+            this.numericUpDownEx5.IncrementMouseWheel = 1;
+            this.numericUpDownEx5.Location = new System.Drawing.Point(267, 6);
+            this.numericUpDownEx5.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownEx5.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx5.Name = "numericUpDownEx5";
+            this.numericUpDownEx5.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDownEx5.TabIndex = 13;
+            this.numericUpDownEx5.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx5.ValueChanged += new System.EventHandler(this.numericUpDownEx5_ValueChanged);
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -758,6 +857,64 @@
             this.label18.Size = new System.Drawing.Size(39, 15);
             this.label18.TabIndex = 17;
             this.label18.Text = "Z Size:";
+            // 
+            // numericUpDownEx4
+            // 
+            this.numericUpDownEx4.AlwaysFireValueChanged = false;
+            this.numericUpDownEx4.DecimalPlaces = 3;
+            this.numericUpDownEx4.DisplayDigits = 1;
+            this.numericUpDownEx4.DoValueRollover = false;
+            this.numericUpDownEx4.Enabled = false;
+            this.numericUpDownEx4.IncrementMouseWheel = 1;
+            this.numericUpDownEx4.Location = new System.Drawing.Point(74, 36);
+            this.numericUpDownEx4.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownEx4.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx4.Name = "numericUpDownEx4";
+            this.numericUpDownEx4.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDownEx4.TabIndex = 11;
+            this.numericUpDownEx4.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx4.ValueChanged += new System.EventHandler(this.numericUpDownEx4_ValueChanged);
+            // 
+            // numericUpDownEx1
+            // 
+            this.numericUpDownEx1.AlwaysFireValueChanged = false;
+            this.numericUpDownEx1.DecimalPlaces = 3;
+            this.numericUpDownEx1.DisplayDigits = 1;
+            this.numericUpDownEx1.DoValueRollover = false;
+            this.numericUpDownEx1.Enabled = false;
+            this.numericUpDownEx1.IncrementMouseWheel = 1;
+            this.numericUpDownEx1.Location = new System.Drawing.Point(267, 36);
+            this.numericUpDownEx1.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownEx1.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx1.Name = "numericUpDownEx1";
+            this.numericUpDownEx1.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDownEx1.TabIndex = 14;
+            this.numericUpDownEx1.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx1.ValueChanged += new System.EventHandler(this.numericUpDownEx1_ValueChanged);
             // 
             // label23
             // 
@@ -778,6 +935,35 @@
             this.label20.Size = new System.Drawing.Size(63, 15);
             this.label20.TabIndex = 4;
             this.label20.Text = "Properties:";
+            // 
+            // numericUpDownEx2
+            // 
+            this.numericUpDownEx2.AlwaysFireValueChanged = false;
+            this.numericUpDownEx2.DecimalPlaces = 3;
+            this.numericUpDownEx2.DisplayDigits = 1;
+            this.numericUpDownEx2.DoValueRollover = false;
+            this.numericUpDownEx2.Enabled = false;
+            this.numericUpDownEx2.IncrementMouseWheel = 1;
+            this.numericUpDownEx2.Location = new System.Drawing.Point(74, 6);
+            this.numericUpDownEx2.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownEx2.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx2.Name = "numericUpDownEx2";
+            this.numericUpDownEx2.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDownEx2.TabIndex = 10;
+            this.numericUpDownEx2.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx2.ValueChanged += new System.EventHandler(this.numericUpDownEx2_ValueChanged);
             // 
             // button9
             // 
@@ -806,6 +992,24 @@
             this.numericUpDown10.Size = new System.Drawing.Size(65, 22);
             this.numericUpDown10.TabIndex = 7;
             this.numericUpDown10.ValueChanged += new System.EventHandler(this.numericUpDown10_ValueChanged);
+            // 
+            // niceLine2
+            // 
+            this.niceLine2.Location = new System.Drawing.Point(9, 53);
+            this.niceLine2.Name = "niceLine2";
+            this.niceLine2.Size = new System.Drawing.Size(361, 17);
+            this.niceLine2.TabIndex = 20;
+            this.niceLine2.TabStop = false;
+            // 
+            // numericTextBox3
+            // 
+            this.numericTextBox3.AllowHex = true;
+            this.numericTextBox3.Digits = 8;
+            this.numericTextBox3.Location = new System.Drawing.Point(284, 37);
+            this.numericTextBox3.Name = "numericTextBox3";
+            this.numericTextBox3.Size = new System.Drawing.Size(98, 22);
+            this.numericTextBox3.TabIndex = 2;
+            this.numericTextBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox3_KeyDown);
             // 
             // label6
             // 
@@ -927,6 +1131,24 @@
             this.tabPage4.Text = "Transitions & Spawns";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // actorEditControl3
+            // 
+            this.actorEditControl3.ActorNumber = 0;
+            this.actorEditControl3.Enabled = false;
+            this.actorEditControl3.Location = new System.Drawing.Point(3, 242);
+            this.actorEditControl3.Name = "actorEditControl3";
+            this.actorEditControl3.Size = new System.Drawing.Size(382, 204);
+            this.actorEditControl3.TabIndex = 1;
+            // 
+            // actorEditControl2
+            // 
+            this.actorEditControl2.ActorNumber = 0;
+            this.actorEditControl2.Enabled = false;
+            this.actorEditControl2.Location = new System.Drawing.Point(3, 3);
+            this.actorEditControl2.Name = "actorEditControl2";
+            this.actorEditControl2.Size = new System.Drawing.Size(382, 232);
+            this.actorEditControl2.TabIndex = 0;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox6);
@@ -1032,6 +1254,34 @@
             this.checkBox4.Text = "Is Hookshot-able?";
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // numericUpDownEx10
+            // 
+            this.numericUpDownEx10.AlwaysFireValueChanged = false;
+            this.numericUpDownEx10.DisplayDigits = 1;
+            this.numericUpDownEx10.DoValueRollover = true;
+            this.numericUpDownEx10.Hexadecimal = true;
+            this.numericUpDownEx10.IncrementMouseWheel = 1;
+            this.numericUpDownEx10.Location = new System.Drawing.Point(89, 65);
+            this.numericUpDownEx10.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDownEx10.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx10.Name = "numericUpDownEx10";
+            this.numericUpDownEx10.Size = new System.Drawing.Size(40, 22);
+            this.numericUpDownEx10.TabIndex = 1;
+            this.numericUpDownEx10.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx10.ValueChanged += new System.EventHandler(this.numericUpDownEx10_ValueChanged);
             // 
             // label17
             // 
@@ -1157,6 +1407,34 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // numericUpDownEx8
+            // 
+            this.numericUpDownEx8.AlwaysFireValueChanged = false;
+            this.numericUpDownEx8.DisplayDigits = 1;
+            this.numericUpDownEx8.DoValueRollover = true;
+            this.numericUpDownEx8.Hexadecimal = true;
+            this.numericUpDownEx8.IncrementMouseWheel = 3;
+            this.numericUpDownEx8.Location = new System.Drawing.Point(89, 125);
+            this.numericUpDownEx8.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDownEx8.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx8.Name = "numericUpDownEx8";
+            this.numericUpDownEx8.Size = new System.Drawing.Size(40, 22);
+            this.numericUpDownEx8.TabIndex = 32;
+            this.numericUpDownEx8.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx8.ValueChanged += new System.EventHandler(this.numericUpDownEx8_ValueChanged);
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -1165,6 +1443,34 @@
             this.label15.Size = new System.Drawing.Size(74, 15);
             this.label15.TabIndex = 31;
             this.label15.Text = "Terrain Type:";
+            // 
+            // numericUpDownEx9
+            // 
+            this.numericUpDownEx9.AlwaysFireValueChanged = false;
+            this.numericUpDownEx9.DisplayDigits = 1;
+            this.numericUpDownEx9.DoValueRollover = true;
+            this.numericUpDownEx9.Hexadecimal = true;
+            this.numericUpDownEx9.IncrementMouseWheel = 3;
+            this.numericUpDownEx9.Location = new System.Drawing.Point(324, 125);
+            this.numericUpDownEx9.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDownEx9.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx9.Name = "numericUpDownEx9";
+            this.numericUpDownEx9.Size = new System.Drawing.Size(40, 22);
+            this.numericUpDownEx9.TabIndex = 80;
+            this.numericUpDownEx9.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx9.ValueChanged += new System.EventHandler(this.numericUpDownEx9_ValueChanged);
             // 
             // label16
             // 
@@ -1175,6 +1481,34 @@
             this.label16.TabIndex = 29;
             this.label16.Text = "Ground Type:";
             // 
+            // numericUpDownEx7
+            // 
+            this.numericUpDownEx7.AlwaysFireValueChanged = false;
+            this.numericUpDownEx7.DisplayDigits = 1;
+            this.numericUpDownEx7.DoValueRollover = true;
+            this.numericUpDownEx7.Hexadecimal = true;
+            this.numericUpDownEx7.IncrementMouseWheel = 1;
+            this.numericUpDownEx7.Location = new System.Drawing.Point(324, 95);
+            this.numericUpDownEx7.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDownEx7.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx7.Name = "numericUpDownEx7";
+            this.numericUpDownEx7.Size = new System.Drawing.Size(40, 22);
+            this.numericUpDownEx7.TabIndex = 26;
+            this.numericUpDownEx7.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx7.ValueChanged += new System.EventHandler(this.numericUpDownEx7_ValueChanged);
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -1183,6 +1517,34 @@
             this.label14.Size = new System.Drawing.Size(77, 15);
             this.label14.TabIndex = 25;
             this.label14.Text = "Environment:";
+            // 
+            // numericUpDownEx3
+            // 
+            this.numericUpDownEx3.AlwaysFireValueChanged = false;
+            this.numericUpDownEx3.DisplayDigits = 1;
+            this.numericUpDownEx3.DoValueRollover = true;
+            this.numericUpDownEx3.Hexadecimal = true;
+            this.numericUpDownEx3.IncrementMouseWheel = 3;
+            this.numericUpDownEx3.Location = new System.Drawing.Point(89, 95);
+            this.numericUpDownEx3.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDownEx3.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEx3.Name = "numericUpDownEx3";
+            this.numericUpDownEx3.Size = new System.Drawing.Size(40, 22);
+            this.numericUpDownEx3.TabIndex = 24;
+            this.numericUpDownEx3.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownEx3.ValueChanged += new System.EventHandler(this.numericUpDownEx3_ValueChanged);
             // 
             // label13
             // 
@@ -1193,6 +1555,25 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "Echo Range:";
             // 
+            // niceLine4
+            // 
+            this.niceLine4.Location = new System.Drawing.Point(3, 40);
+            this.niceLine4.Name = "niceLine4";
+            this.niceLine4.Size = new System.Drawing.Size(361, 17);
+            this.niceLine4.TabIndex = 22;
+            this.niceLine4.TabStop = false;
+            // 
+            // numericTextBox1
+            // 
+            this.numericTextBox1.AllowHex = true;
+            this.numericTextBox1.Digits = 16;
+            this.numericTextBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericTextBox1.Location = new System.Drawing.Point(89, 10);
+            this.numericTextBox1.Name = "numericTextBox1";
+            this.numericTextBox1.Size = new System.Drawing.Size(275, 20);
+            this.numericTextBox1.TabIndex = 0;
+            this.numericTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox1_KeyDown);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -1201,6 +1582,14 @@
             this.label11.Size = new System.Drawing.Size(59, 15);
             this.label11.TabIndex = 1;
             this.label11.Text = "Raw Data:";
+            // 
+            // niceLine1
+            // 
+            this.niceLine1.Location = new System.Drawing.Point(9, 53);
+            this.niceLine1.Name = "niceLine1";
+            this.niceLine1.Size = new System.Drawing.Size(361, 17);
+            this.niceLine1.TabIndex = 21;
+            this.niceLine1.TabStop = false;
             // 
             // button1
             // 
@@ -1247,6 +1636,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Rooms";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // numericTextBox4
+            // 
+            this.numericTextBox4.AllowHex = true;
+            this.numericTextBox4.Digits = 4;
+            this.numericTextBox4.Location = new System.Drawing.Point(104, 187);
+            this.numericTextBox4.Name = "numericTextBox4";
+            this.numericTextBox4.Size = new System.Drawing.Size(98, 22);
+            this.numericTextBox4.TabIndex = 3;
+            this.numericTextBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox5_KeyDown);
             // 
             // label7
             // 
@@ -1528,6 +1927,15 @@
             this.tabPage3.Text = "Objects & Actors";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // actorEditControl1
+            // 
+            this.actorEditControl1.ActorNumber = 0;
+            this.actorEditControl1.Enabled = false;
+            this.actorEditControl1.Location = new System.Drawing.Point(3, 167);
+            this.actorEditControl1.Name = "actorEditControl1";
+            this.actorEditControl1.Size = new System.Drawing.Size(382, 204);
+            this.actorEditControl1.TabIndex = 3;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listBox3);
@@ -1575,414 +1983,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // numericTextBox8
-            // 
-            this.numericTextBox8.AllowHex = true;
-            this.numericTextBox8.Digits = 4;
-            this.numericTextBox8.Enabled = false;
-            this.numericTextBox8.Location = new System.Drawing.Point(287, 100);
-            this.numericTextBox8.Name = "numericTextBox8";
-            this.numericTextBox8.Size = new System.Drawing.Size(80, 22);
-            this.numericTextBox8.TabIndex = 20;
-            this.numericTextBox8.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox8_KeyDown);
-            // 
-            // numericTextBox7
-            // 
-            this.numericTextBox7.AllowHex = true;
-            this.numericTextBox7.Digits = 4;
-            this.numericTextBox7.Enabled = false;
-            this.numericTextBox7.Location = new System.Drawing.Point(287, 70);
-            this.numericTextBox7.Name = "numericTextBox7";
-            this.numericTextBox7.Size = new System.Drawing.Size(80, 22);
-            this.numericTextBox7.TabIndex = 19;
-            this.numericTextBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox7_KeyDown);
-            // 
-            // niceLine3
-            // 
-            this.niceLine3.Location = new System.Drawing.Point(9, 53);
-            this.niceLine3.Name = "niceLine3";
-            this.niceLine3.Size = new System.Drawing.Size(361, 17);
-            this.niceLine3.TabIndex = 20;
-            this.niceLine3.TabStop = false;
-            // 
-            // numericUpDownEx6
-            // 
-            this.numericUpDownEx6.AlwaysFireValueChanged = false;
-            this.numericUpDownEx6.DecimalPlaces = 3;
-            this.numericUpDownEx6.DisplayDigits = 1;
-            this.numericUpDownEx6.DoValueRollover = false;
-            this.numericUpDownEx6.Enabled = false;
-            this.numericUpDownEx6.IncrementMouseWheel = 1;
-            this.numericUpDownEx6.Location = new System.Drawing.Point(74, 66);
-            this.numericUpDownEx6.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownEx6.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx6.Name = "numericUpDownEx6";
-            this.numericUpDownEx6.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDownEx6.TabIndex = 12;
-            this.numericUpDownEx6.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx6.ValueChanged += new System.EventHandler(this.numericUpDownEx6_ValueChanged);
-            // 
-            // numericTextBox6
-            // 
-            this.numericTextBox6.AllowHex = true;
-            this.numericTextBox6.Digits = 8;
-            this.numericTextBox6.Enabled = false;
-            this.numericTextBox6.Location = new System.Drawing.Point(267, 65);
-            this.numericTextBox6.Name = "numericTextBox6";
-            this.numericTextBox6.Size = new System.Drawing.Size(100, 22);
-            this.numericTextBox6.TabIndex = 15;
-            this.numericTextBox6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox6_KeyDown);
-            // 
-            // numericUpDownEx5
-            // 
-            this.numericUpDownEx5.AlwaysFireValueChanged = false;
-            this.numericUpDownEx5.DecimalPlaces = 3;
-            this.numericUpDownEx5.DisplayDigits = 1;
-            this.numericUpDownEx5.DoValueRollover = false;
-            this.numericUpDownEx5.Enabled = false;
-            this.numericUpDownEx5.IncrementMouseWheel = 1;
-            this.numericUpDownEx5.Location = new System.Drawing.Point(267, 6);
-            this.numericUpDownEx5.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownEx5.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx5.Name = "numericUpDownEx5";
-            this.numericUpDownEx5.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDownEx5.TabIndex = 13;
-            this.numericUpDownEx5.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx5.ValueChanged += new System.EventHandler(this.numericUpDownEx5_ValueChanged);
-            // 
-            // numericUpDownEx4
-            // 
-            this.numericUpDownEx4.AlwaysFireValueChanged = false;
-            this.numericUpDownEx4.DecimalPlaces = 3;
-            this.numericUpDownEx4.DisplayDigits = 1;
-            this.numericUpDownEx4.DoValueRollover = false;
-            this.numericUpDownEx4.Enabled = false;
-            this.numericUpDownEx4.IncrementMouseWheel = 1;
-            this.numericUpDownEx4.Location = new System.Drawing.Point(74, 36);
-            this.numericUpDownEx4.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownEx4.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx4.Name = "numericUpDownEx4";
-            this.numericUpDownEx4.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDownEx4.TabIndex = 11;
-            this.numericUpDownEx4.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx4.ValueChanged += new System.EventHandler(this.numericUpDownEx4_ValueChanged);
-            // 
-            // numericUpDownEx1
-            // 
-            this.numericUpDownEx1.AlwaysFireValueChanged = false;
-            this.numericUpDownEx1.DecimalPlaces = 3;
-            this.numericUpDownEx1.DisplayDigits = 1;
-            this.numericUpDownEx1.DoValueRollover = false;
-            this.numericUpDownEx1.Enabled = false;
-            this.numericUpDownEx1.IncrementMouseWheel = 1;
-            this.numericUpDownEx1.Location = new System.Drawing.Point(267, 36);
-            this.numericUpDownEx1.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownEx1.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx1.Name = "numericUpDownEx1";
-            this.numericUpDownEx1.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDownEx1.TabIndex = 14;
-            this.numericUpDownEx1.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx1.ValueChanged += new System.EventHandler(this.numericUpDownEx1_ValueChanged);
-            // 
-            // numericUpDownEx2
-            // 
-            this.numericUpDownEx2.AlwaysFireValueChanged = false;
-            this.numericUpDownEx2.DecimalPlaces = 3;
-            this.numericUpDownEx2.DisplayDigits = 1;
-            this.numericUpDownEx2.DoValueRollover = false;
-            this.numericUpDownEx2.Enabled = false;
-            this.numericUpDownEx2.IncrementMouseWheel = 1;
-            this.numericUpDownEx2.Location = new System.Drawing.Point(74, 6);
-            this.numericUpDownEx2.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownEx2.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx2.Name = "numericUpDownEx2";
-            this.numericUpDownEx2.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDownEx2.TabIndex = 10;
-            this.numericUpDownEx2.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx2.ValueChanged += new System.EventHandler(this.numericUpDownEx2_ValueChanged);
-            // 
-            // niceLine2
-            // 
-            this.niceLine2.Location = new System.Drawing.Point(9, 53);
-            this.niceLine2.Name = "niceLine2";
-            this.niceLine2.Size = new System.Drawing.Size(361, 17);
-            this.niceLine2.TabIndex = 20;
-            this.niceLine2.TabStop = false;
-            // 
-            // numericTextBox3
-            // 
-            this.numericTextBox3.AllowHex = true;
-            this.numericTextBox3.Digits = 8;
-            this.numericTextBox3.Location = new System.Drawing.Point(284, 37);
-            this.numericTextBox3.Name = "numericTextBox3";
-            this.numericTextBox3.Size = new System.Drawing.Size(98, 22);
-            this.numericTextBox3.TabIndex = 2;
-            this.numericTextBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox3_KeyDown);
-            // 
-            // actorEditControl3
-            // 
-            this.actorEditControl3.ActorNumber = 0;
-            this.actorEditControl3.Enabled = false;
-            this.actorEditControl3.Location = new System.Drawing.Point(3, 242);
-            this.actorEditControl3.Name = "actorEditControl3";
-            this.actorEditControl3.Size = new System.Drawing.Size(382, 204);
-            this.actorEditControl3.TabIndex = 1;
-            // 
-            // actorEditControl2
-            // 
-            this.actorEditControl2.ActorNumber = 0;
-            this.actorEditControl2.Enabled = false;
-            this.actorEditControl2.Location = new System.Drawing.Point(3, 3);
-            this.actorEditControl2.Name = "actorEditControl2";
-            this.actorEditControl2.Size = new System.Drawing.Size(382, 232);
-            this.actorEditControl2.TabIndex = 0;
-            // 
-            // numericUpDownEx10
-            // 
-            this.numericUpDownEx10.AlwaysFireValueChanged = false;
-            this.numericUpDownEx10.DisplayDigits = 1;
-            this.numericUpDownEx10.DoValueRollover = true;
-            this.numericUpDownEx10.Hexadecimal = true;
-            this.numericUpDownEx10.IncrementMouseWheel = 1;
-            this.numericUpDownEx10.Location = new System.Drawing.Point(89, 65);
-            this.numericUpDownEx10.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numericUpDownEx10.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx10.Name = "numericUpDownEx10";
-            this.numericUpDownEx10.Size = new System.Drawing.Size(40, 22);
-            this.numericUpDownEx10.TabIndex = 1;
-            this.numericUpDownEx10.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx10.ValueChanged += new System.EventHandler(this.numericUpDownEx10_ValueChanged);
-            // 
-            // numericUpDownEx8
-            // 
-            this.numericUpDownEx8.AlwaysFireValueChanged = false;
-            this.numericUpDownEx8.DisplayDigits = 1;
-            this.numericUpDownEx8.DoValueRollover = true;
-            this.numericUpDownEx8.Hexadecimal = true;
-            this.numericUpDownEx8.IncrementMouseWheel = 3;
-            this.numericUpDownEx8.Location = new System.Drawing.Point(89, 125);
-            this.numericUpDownEx8.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numericUpDownEx8.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx8.Name = "numericUpDownEx8";
-            this.numericUpDownEx8.Size = new System.Drawing.Size(40, 22);
-            this.numericUpDownEx8.TabIndex = 32;
-            this.numericUpDownEx8.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx8.ValueChanged += new System.EventHandler(this.numericUpDownEx8_ValueChanged);
-            // 
-            // numericUpDownEx9
-            // 
-            this.numericUpDownEx9.AlwaysFireValueChanged = false;
-            this.numericUpDownEx9.DisplayDigits = 1;
-            this.numericUpDownEx9.DoValueRollover = true;
-            this.numericUpDownEx9.Hexadecimal = true;
-            this.numericUpDownEx9.IncrementMouseWheel = 3;
-            this.numericUpDownEx9.Location = new System.Drawing.Point(324, 125);
-            this.numericUpDownEx9.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numericUpDownEx9.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx9.Name = "numericUpDownEx9";
-            this.numericUpDownEx9.Size = new System.Drawing.Size(40, 22);
-            this.numericUpDownEx9.TabIndex = 80;
-            this.numericUpDownEx9.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx9.ValueChanged += new System.EventHandler(this.numericUpDownEx9_ValueChanged);
-            // 
-            // numericUpDownEx7
-            // 
-            this.numericUpDownEx7.AlwaysFireValueChanged = false;
-            this.numericUpDownEx7.DisplayDigits = 1;
-            this.numericUpDownEx7.DoValueRollover = true;
-            this.numericUpDownEx7.Hexadecimal = true;
-            this.numericUpDownEx7.IncrementMouseWheel = 1;
-            this.numericUpDownEx7.Location = new System.Drawing.Point(324, 95);
-            this.numericUpDownEx7.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numericUpDownEx7.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx7.Name = "numericUpDownEx7";
-            this.numericUpDownEx7.Size = new System.Drawing.Size(40, 22);
-            this.numericUpDownEx7.TabIndex = 26;
-            this.numericUpDownEx7.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx7.ValueChanged += new System.EventHandler(this.numericUpDownEx7_ValueChanged);
-            // 
-            // numericUpDownEx3
-            // 
-            this.numericUpDownEx3.AlwaysFireValueChanged = false;
-            this.numericUpDownEx3.DisplayDigits = 1;
-            this.numericUpDownEx3.DoValueRollover = true;
-            this.numericUpDownEx3.Hexadecimal = true;
-            this.numericUpDownEx3.IncrementMouseWheel = 3;
-            this.numericUpDownEx3.Location = new System.Drawing.Point(89, 95);
-            this.numericUpDownEx3.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numericUpDownEx3.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownEx3.Name = "numericUpDownEx3";
-            this.numericUpDownEx3.Size = new System.Drawing.Size(40, 22);
-            this.numericUpDownEx3.TabIndex = 24;
-            this.numericUpDownEx3.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownEx3.ValueChanged += new System.EventHandler(this.numericUpDownEx3_ValueChanged);
-            // 
-            // niceLine4
-            // 
-            this.niceLine4.Location = new System.Drawing.Point(3, 40);
-            this.niceLine4.Name = "niceLine4";
-            this.niceLine4.Size = new System.Drawing.Size(361, 17);
-            this.niceLine4.TabIndex = 22;
-            this.niceLine4.TabStop = false;
-            // 
-            // numericTextBox1
-            // 
-            this.numericTextBox1.AllowHex = true;
-            this.numericTextBox1.Digits = 16;
-            this.numericTextBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericTextBox1.Location = new System.Drawing.Point(89, 10);
-            this.numericTextBox1.Name = "numericTextBox1";
-            this.numericTextBox1.Size = new System.Drawing.Size(275, 20);
-            this.numericTextBox1.TabIndex = 0;
-            this.numericTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericTextBox1_KeyDown);
-            // 
-            // niceLine1
-            // 
-            this.niceLine1.Location = new System.Drawing.Point(9, 53);
-            this.niceLine1.Name = "niceLine1";
-            this.niceLine1.Size = new System.Drawing.Size(361, 17);
-            this.niceLine1.TabIndex = 21;
-            this.niceLine1.TabStop = false;
-            // 
-            // numericTextBox4
-            // 
-            this.numericTextBox4.AllowHex = true;
-            this.numericTextBox4.Digits = 4;
-            this.numericTextBox4.Location = new System.Drawing.Point(104, 187);
-            this.numericTextBox4.Name = "numericTextBox4";
-            this.numericTextBox4.Size = new System.Drawing.Size(98, 22);
-            this.numericTextBox4.TabIndex = 3;
-            this.numericTextBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox5_KeyDown);
-            // 
-            // actorEditControl1
-            // 
-            this.actorEditControl1.ActorNumber = 0;
-            this.actorEditControl1.Enabled = false;
-            this.actorEditControl1.Location = new System.Drawing.Point(3, 167);
-            this.actorEditControl1.Name = "actorEditControl1";
-            this.actorEditControl1.Size = new System.Drawing.Size(382, 204);
-            this.actorEditControl1.TabIndex = 3;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -2016,6 +2016,11 @@
             this.groupBox4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tabPage4.ResumeLayout(false);
@@ -2024,10 +2029,15 @@
             this.groupBox3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx10)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -2040,16 +2050,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEx3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
