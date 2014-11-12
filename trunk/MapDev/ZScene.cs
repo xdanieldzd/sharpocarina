@@ -820,51 +820,35 @@ namespace SharpOcarina
                 Helpers.Overwrite32(ref Room.RoomData, CmdActorOffset + 4, (uint)(0x03000000 | ActorOffset));
             }
 
-            /* Write mesh header */
             if (MeshHeaderOffset != -1)
             {
-                //Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x02000000 | (Room.DLists.Count << 16)));
-                //Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 4, (uint)(0x03000000 | MeshHeaderOffset + 12));
-                //Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 8, (uint)(0x03000000 | (MeshHeaderOffset + 12) + 16));
-                //MeshHeaderOffset += 12;
+                List<NDisplayList> opaqueLists = Room.DLists.FindAll(delegate(NDisplayList DL) { return (DL.TintAlpha >> 24) == 255; });
+                List<NDisplayList> translucentLists = Room.DLists.FindAll(delegate(NDisplayList DL) { return (DL.TintAlpha >> 24) != 255; });
+                int numEntries = Math.Max(opaqueLists.Count, translucentLists.Count);
 
-                //foreach (NDisplayList DList in Room.DLists)
-                //{
-                //    ushort MaxX = (ushort)System.Convert.ToInt16(DList.MaxCoordinate.X);
-                //    ushort MaxZ = (ushort)System.Convert.ToInt16(DList.MaxCoordinate.Z);
-                //    ushort MinX = (ushort)System.Convert.ToInt16(DList.MinCoordinate.X);
-                //    ushort MinZ = (ushort)System.Convert.ToInt16(DList.MinCoordinate.Z);
-
-                //    Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)((MaxX << 16) | MaxZ));
-                //    Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 4, (uint)((MinX << 16) | MinZ));
-
-                //    if (DList.TranslucentAlpha == 0xFF)
-                //        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 8, (uint)(0x03000000 | DList.Offset));     /* Primary Display List, is opaque */
-                //    else
-                //        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 12, (uint)(0x03000000 | DList.Offset));    /* Secondary Display List, is translucent */
-
-                //    MeshHeaderOffset += 16;
-                //}
-
-                Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x00000000 | ((Room.DLists.Count) << 16)));
+                Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x00000000 | (numEntries << 16)));
                 Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 4, (uint)(0x03000000 | MeshHeaderOffset + 12));
-                Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 8, (uint)(0x03000000 | (MeshHeaderOffset + 12) + (Room.DLists.Count * 4)));
+                Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset + 8, (uint)(0x03000000 | (MeshHeaderOffset + 12) + (numEntries * 8)));
                 MeshHeaderOffset += 12;
 
-                /* Opaque Display Lists */
-                foreach (NDisplayList DList in Room.DLists.FindAll(delegate(NDisplayList DL) { return (DL.TintAlpha >> 24) == 255; }))
+                for (int i = 0; i < numEntries; i++)
                 {
-                    Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x03000000 | DList.Offset));
-                    MeshHeaderOffset += 4;
-                }
+                    if (i < opaqueLists.Count)
+                        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x03000000 | opaqueLists[i].Offset));
+                    else
+                        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, 0);
 
-                /* Translucent Display List */
-                foreach (NDisplayList DList in Room.DLists.FindAll(delegate(NDisplayList DL) { return (DL.TintAlpha >> 24) != 255; }))
-                {
-                    Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x03000000 | DList.Offset));
+                    MeshHeaderOffset += 4;
+
+                    if (i < translucentLists.Count)
+                        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, (uint)(0x03000000 | translucentLists[i].Offset));
+                    else
+                        Helpers.Overwrite32(ref Room.RoomData, MeshHeaderOffset, 0);
+
                     MeshHeaderOffset += 4;
                 }
             }
+
         }
 
         #endregion
